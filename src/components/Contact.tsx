@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,6 +10,14 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,6 +35,32 @@ const Contact = () => {
     visible: { opacity: 1, y: 0 }
   };
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const { firstName, lastName, email, subject, message } = formData;
+
+    if (!firstName || !lastName || !email || !subject || !message) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    const mailtoLink = `mailto:pratiksharma2061@gmail.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(
+      `Name: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`
+    )}`;
+
+    window.location.href = mailtoLink;
+  };
+
   return (
     <section ref={ref} className="py-20 relative">
       <div className="container mx-auto px-4">
@@ -39,16 +73,13 @@ const Contact = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="gradient-text">Get In Touch</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Ready to bring your ideas to life? Let's discuss your next project
-          </p>
         </motion.div>
 
         <motion.div
           className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={isInView ? 'visible' : 'hidden'}
         >
           {/* Contact Info */}
           <motion.div variants={itemVariants} className="space-y-6">
@@ -57,9 +88,9 @@ const Contact = () => {
                 Let's Connect
               </h3>
               <p className="text-muted-foreground mb-8">
-                I'm always open to discussing new opportunities and interesting projects. 
-                Whether you need a full-stack solution or want to collaborate on something amazing, 
-                I'd love to hear from you.
+                I'm always open to discussing new opportunities and interesting projects. Whether you
+                need a full-stack solution or want to collaborate on something amazing, I'd love to
+                hear from you.
               </p>
             </div>
 
@@ -73,7 +104,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">Email</h4>
-                  <p className="text-muted-foreground">hello@developer.com</p>
+                  <p className="text-muted-foreground">pratiksharma2061@gmail.com</p>
                 </div>
               </motion.div>
 
@@ -86,7 +117,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">Phone</h4>
-                  <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                  <p className="text-muted-foreground">+977-9840697481</p>
                 </div>
               </motion.div>
 
@@ -99,7 +130,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">Location</h4>
-                  <p className="text-muted-foreground">San Francisco, CA</p>
+                  <p className="text-muted-foreground">Butwal-8 , Kalikanagar</p>
                 </div>
               </motion.div>
             </div>
@@ -108,24 +139,32 @@ const Contact = () => {
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
             <Card className="glass p-6 hover:neon-glow transition-all duration-300">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit} noValidate>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
                       First Name
                     </label>
-                    <Input 
-                      placeholder="John" 
+                    <Input
+                      name="firstName"
+                      placeholder="John"
                       className="glass border-primary/30 focus:border-primary"
+                      required
+                      value={formData.firstName}
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
                       Last Name
                     </label>
-                    <Input 
-                      placeholder="Doe" 
+                    <Input
+                      name="lastName"
+                      placeholder="Doe"
                       className="glass border-primary/30 focus:border-primary"
+                      required
+                      value={formData.lastName}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -134,10 +173,14 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Email
                   </label>
-                  <Input 
+                  <Input
+                    name="email"
                     type="email"
-                    placeholder="john@example.com" 
+                    placeholder="john@example.com"
                     className="glass border-primary/30 focus:border-primary"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -145,9 +188,13 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Subject
                   </label>
-                  <Input 
-                    placeholder="Project Discussion" 
+                  <Input
+                    name="subject"
+                    placeholder="Project Discussion"
                     className="glass border-primary/30 focus:border-primary"
+                    required
+                    value={formData.subject}
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -155,20 +202,21 @@ const Contact = () => {
                   <label className="block text-sm font-medium text-foreground mb-2">
                     Message
                   </label>
-                  <Textarea 
+                  <Textarea
+                    name="message"
                     placeholder="Tell me about your project..."
                     rows={5}
                     className="glass border-primary/30 focus:border-primary resize-none"
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
                   />
                 </div>
 
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button 
-                    type="submit" 
-                    size="lg" 
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button
+                    type="submit"
+                    size="lg"
                     className="w-full neon-glow animate-pulse-glow"
                   >
                     <Send className="mr-2 h-5 w-5" />

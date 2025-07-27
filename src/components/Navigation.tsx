@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,21 +12,21 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Skills', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Home", href: "#home" },
+    { name: "Skills", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'glass border-b' : 'bg-transparent'
+        isScrolled ? "glass border-b" : "bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -60,9 +60,11 @@ const Navigation = () => {
                 />
               </motion.a>
             ))}
-            <Button size="sm" className="neon-glow">
-              Hire Me
-            </Button>
+            <a href="#contact">
+              <Button size="sm" className="neon-glow" type="button">
+                Hire Me
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -73,18 +75,24 @@ const Navigation = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="glass"
             >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         <motion.div
-          className={`md:hidden overflow-hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}
+          className={`md:hidden overflow-hidden ${
+            isMobileMenuOpen ? "block" : "hidden"
+          }`}
           initial={{ height: 0, opacity: 0 }}
-          animate={{ 
-            height: isMobileMenuOpen ? 'auto' : 0,
-            opacity: isMobileMenuOpen ? 1 : 0
+          animate={{
+            height: isMobileMenuOpen ? "auto" : 0,
+            opacity: isMobileMenuOpen ? 1 : 0,
           }}
           transition={{ duration: 0.3 }}
         >

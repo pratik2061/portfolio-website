@@ -1,39 +1,59 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const technologies = [
-  { 
-    name: 'React', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
+  {
+    name: "React",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   },
-  { 
-    name: 'TypeScript', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
+  {
+    name: "TypeScript",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   },
-  { 
-    name: 'Node.js', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
+  {
+    name: "Node.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   },
-  { 
-    name: 'Express.js', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg'
+  {
+    name: "Express.js",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
   },
-  { 
-    name: 'PostgreSQL', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg'
+  {
+    name: "PostgreSQL",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   },
-  { 
-    name: 'MongoDB', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
+  {
+    name: "MongoDB",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
   },
-  { 
-    name: 'Docker', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'
+  {
+    name: "Docker",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
   },
-  { 
-    name: 'AWS', 
-    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg'
+  {
+    name: "Tailwind CSS",
+    logo: "https://imgs.search.brave.com/iVq-vnKDxsqDQl2aqvMmqhz6mrul_N8FAKNDv2Wk0DI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YXJlc291cmNlLnNm/bzIuZGlnaXRhbG9j/ZWFuc3BhY2VzLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAy/NC8wOS8xMDE3MDYx/MC9UYWlsd2luZC1D/U1MtTG9nby1QTkcu/cG5n",
+  },
+  {
+    name: "Socket.IO",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg",
+  },
+  {
+    name: "Git",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  },
+  {
+    name: "Prisma",
+    logo: "https://www.svgrepo.com/show/354210/prisma.svg",
+  },
+  {
+    name: "Redux",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+  },
+  {
+    name: "Axios",
+    logo: "https://avatars.githubusercontent.com/u/32372333?s=200&v=4",
   },
 ];
 
@@ -47,14 +67,14 @@ const TechStack = () => {
       opacity: 1,
       transition: {
         delayChildren: 0.2,
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0 }
+    visible: { opacity: 1, x: 0 },
   };
 
   return (
@@ -70,7 +90,8 @@ const TechStack = () => {
             <span className="gradient-text">Skills & Technologies</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            These are the technologies I work with to build amazing digital experiences
+            These are the technologies I work with to build amazing digital
+            experiences
           </p>
         </motion.div>
 
@@ -80,20 +101,22 @@ const TechStack = () => {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {technologies.map((tech, index) => (
+          {technologies.map((tech) => (
             <motion.div
               key={tech.name}
               variants={itemVariants}
               className="glass p-6 rounded-xl hover:neon-glow transition-all duration-300 text-center"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.05 }}
             >
-              <div className="flex flex-col items-center gap-4">
-                <img 
-                  src={tech.logo} 
+              <div className="flex flex-col items-center gap-2">
+                <img
+                  src={tech.logo}
                   alt={`${tech.name} logo`}
-                  className="w-16 h-16"
+                  className="w-14 h-14 object-contain"
                 />
-                <h3 className="text-lg font-semibold text-foreground">{tech.name}</h3>
+                <h3 className="text-xs font-semibold text-foreground">
+                  {tech.name}
+                </h3>
               </div>
             </motion.div>
           ))}
