@@ -5,50 +5,34 @@ import { useRef } from 'react';
 const technologies = [
   { 
     name: 'React', 
-    level: 95, 
-    color: 'from-blue-500 to-cyan-500',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
   },
   { 
     name: 'TypeScript', 
-    level: 90, 
-    color: 'from-blue-600 to-blue-800',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
   },
   { 
     name: 'Node.js', 
-    level: 88, 
-    color: 'from-green-500 to-green-700',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
   },
   { 
     name: 'Express.js', 
-    level: 85, 
-    color: 'from-gray-600 to-gray-800',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg'
   },
   { 
     name: 'PostgreSQL', 
-    level: 82, 
-    color: 'from-blue-700 to-indigo-600',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg'
   },
   { 
     name: 'MongoDB', 
-    level: 80, 
-    color: 'from-green-600 to-green-800',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
   },
   { 
     name: 'Docker', 
-    level: 85, 
-    color: 'from-blue-400 to-blue-600',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'
   },
   { 
     name: 'AWS', 
-    level: 78, 
-    color: 'from-orange-500 to-yellow-600',
     logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg'
   },
 ];
@@ -91,7 +75,7 @@ const TechStack = () => {
         </motion.div>
 
         <motion.div
-          className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
@@ -100,30 +84,16 @@ const TechStack = () => {
             <motion.div
               key={tech.name}
               variants={itemVariants}
-              className="glass p-6 rounded-xl hover:neon-glow transition-all duration-300"
+              className="glass p-6 rounded-xl hover:neon-glow transition-all duration-300 text-center"
               whileHover={{ scale: 1.02 }}
             >
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-3">
-                  <img 
-                    src={tech.logo} 
-                    alt={`${tech.name} logo`}
-                    className="w-8 h-8"
-                  />
-                  <h3 className="text-lg font-semibold text-foreground">{tech.name}</h3>
-                </div>
-                <span className="text-primary font-medium">{tech.level}%</span>
-              </div>
-              
-              <div className="w-full bg-secondary rounded-full h-3 overflow-hidden">
-                <motion.div
-                  className={`h-full bg-gradient-to-r ${tech.color} rounded-full relative`}
-                  initial={{ width: 0 }}
-                  animate={isInView ? { width: `${tech.level}%` } : { width: 0 }}
-                  transition={{ duration: 1, delay: index * 0.1, ease: "easeOut" }}
-                >
-                  <div className="absolute inset-0 bg-white/20 animate-pulse" />
-                </motion.div>
+              <div className="flex flex-col items-center gap-4">
+                <img 
+                  src={tech.logo} 
+                  alt={`${tech.name} logo`}
+                  className="w-16 h-16"
+                />
+                <h3 className="text-lg font-semibold text-foreground">{tech.name}</h3>
               </div>
             </motion.div>
           ))}
