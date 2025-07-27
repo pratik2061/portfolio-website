@@ -109,9 +109,11 @@ const Navigation = () => {
               </motion.a>
             ))}
             <div className="px-4 pt-2">
-              <Button size="sm" className="w-full neon-glow">
+            <a href="#contact" className="w-full">
+              <Button size="sm" className="neon-glow w-full" type="button">
                 Hire Me
               </Button>
+            </a>
             </div>
           </div>
         </motion.div>

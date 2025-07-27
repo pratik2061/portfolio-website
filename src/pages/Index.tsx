@@ -6,7 +6,7 @@ import Projects from "@/components/Projects";
 import TechStack from "@/components/TechStack";
 
 const Index = () => {
-  const currentYear = new Date().getFullYear();
+  // const currentYear = new Date().getFullYear();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
