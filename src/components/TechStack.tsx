@@ -3,14 +3,54 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const technologies = [
-  { name: 'React', level: 95, color: 'from-blue-500 to-cyan-500' },
-  { name: 'TypeScript', level: 90, color: 'from-blue-600 to-blue-800' },
-  { name: 'Node.js', level: 88, color: 'from-green-500 to-green-700' },
-  { name: 'Python', level: 85, color: 'from-yellow-500 to-yellow-600' },
-  { name: 'PostgreSQL', level: 82, color: 'from-blue-700 to-indigo-600' },
-  { name: 'AWS', level: 80, color: 'from-orange-500 to-red-500' },
-  { name: 'Docker', level: 85, color: 'from-blue-400 to-blue-600' },
-  { name: 'GraphQL', level: 78, color: 'from-pink-500 to-purple-600' },
+  { 
+    name: 'React', 
+    level: 95, 
+    color: 'from-blue-500 to-cyan-500',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
+  },
+  { 
+    name: 'TypeScript', 
+    level: 90, 
+    color: 'from-blue-600 to-blue-800',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg'
+  },
+  { 
+    name: 'Node.js', 
+    level: 88, 
+    color: 'from-green-500 to-green-700',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg'
+  },
+  { 
+    name: 'Express.js', 
+    level: 85, 
+    color: 'from-gray-600 to-gray-800',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg'
+  },
+  { 
+    name: 'PostgreSQL', 
+    level: 82, 
+    color: 'from-blue-700 to-indigo-600',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg'
+  },
+  { 
+    name: 'MongoDB', 
+    level: 80, 
+    color: 'from-green-600 to-green-800',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg'
+  },
+  { 
+    name: 'Docker', 
+    level: 85, 
+    color: 'from-blue-400 to-blue-600',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'
+  },
+  { 
+    name: 'AWS', 
+    level: 78, 
+    color: 'from-orange-500 to-yellow-600',
+    logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg'
+  },
 ];
 
 const TechStack = () => {
@@ -43,7 +83,7 @@ const TechStack = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">Tech Stack</span>
+            <span className="gradient-text">Skills & Technologies</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             These are the technologies I work with to build amazing digital experiences
@@ -64,7 +104,14 @@ const TechStack = () => {
               whileHover={{ scale: 1.02 }}
             >
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold text-foreground">{tech.name}</h3>
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={tech.logo} 
+                    alt={`${tech.name} logo`}
+                    className="w-8 h-8"
+                  />
+                  <h3 className="text-lg font-semibold text-foreground">{tech.name}</h3>
+                </div>
                 <span className="text-primary font-medium">{tech.level}%</span>
               </div>
               

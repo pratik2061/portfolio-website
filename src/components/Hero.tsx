@@ -54,6 +54,14 @@ const Hero = () => {
           <span className="text-foreground">Developer</span>
         </motion.h1>
 
+        <motion.div variants={itemVariants} className="mb-8">
+          <img 
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
+            alt="Developer Profile" 
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 border-4 border-primary/20 hover:border-primary/40 transition-all duration-300"
+          />
+        </motion.div>
+
         <motion.p 
           className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           variants={itemVariants}
