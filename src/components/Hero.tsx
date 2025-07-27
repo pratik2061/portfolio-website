@@ -39,6 +39,14 @@ const Hero = () => {
         initial="hidden"
         animate="visible"
       >
+        <motion.div variants={itemVariants} className="mb-8">
+          <img 
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
+            alt="Developer Profile" 
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 border-4 border-primary/20 hover:border-primary/40 transition-all duration-300"
+          />
+        </motion.div>
+
         <motion.div variants={itemVariants}>
           <span className="inline-block px-4 py-2 mb-6 text-sm font-medium glass rounded-full border neon-glow">
             Available for freelance work
@@ -54,20 +62,14 @@ const Hero = () => {
           <span className="text-foreground">Developer</span>
         </motion.h1>
 
-        <motion.div variants={itemVariants} className="mb-8">
-          <img 
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" 
-            alt="Developer Profile" 
-            className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 border-4 border-primary/20 hover:border-primary/40 transition-all duration-300"
-          />
-        </motion.div>
-
         <motion.p 
           className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           variants={itemVariants}
         >
           I craft exceptional digital experiences with modern technologies, 
-          turning ideas into powerful web applications.
+          specializing in React, Node.js, and cloud solutions. From frontend interfaces 
+          to backend APIs and database architecture - I build complete web applications 
+          that scale and perform.
         </motion.p>
 
         <motion.div 
