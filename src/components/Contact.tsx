@@ -44,7 +44,6 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const { firstName, lastName, email, subject, message } = formData;
 
     if (!firstName || !lastName || !email || !subject || !message) {
@@ -70,8 +69,8 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">Get In Touch</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+            Get In Touch
           </h2>
         </motion.div>
 
@@ -95,50 +94,39 @@ const Contact = () => {
             </div>
 
             <div className="space-y-4">
-              <motion.div
-                className="flex items-center space-x-4 p-4 glass rounded-lg hover:neon-glow transition-all duration-300"
-                whileHover={{ x: 10 }}
-              >
-                <div className="p-3 bg-primary/20 rounded-full">
-                  <Mail className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Email</h4>
-                  <p className="text-muted-foreground">pratiksharma2061@gmail.com</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-center space-x-4 p-4 glass rounded-lg hover:neon-glow transition-all duration-300"
-                whileHover={{ x: 10 }}
-              >
-                <div className="p-3 bg-primary/20 rounded-full">
-                  <Phone className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Phone</h4>
-                  <p className="text-muted-foreground">+977-9840697481</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="flex items-center space-x-4 p-4 glass rounded-lg hover:neon-glow transition-all duration-300"
-                whileHover={{ x: 10 }}
-              >
-                <div className="p-3 bg-primary/20 rounded-full">
-                  <MapPin className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Location</h4>
-                  <p className="text-muted-foreground">Butwal-8 , Kalikanagar</p>
-                </div>
-              </motion.div>
+              {[{
+                icon: <Mail className="h-5 w-5 text-primary" />,
+                label: "Email",
+                value: "pratiksharma2061@gmail.com"
+              }, {
+                icon: <Phone className="h-5 w-5 text-primary" />,
+                label: "Phone",
+                value: "+977-9840697481"
+              }, {
+                icon: <MapPin className="h-5 w-5 text-primary" />,
+                label: "Location",
+                value: "Butwal-8, Kalikanagar"
+              }].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-center space-x-4 p-4 rounded-lg border border-border bg-background shadow-sm transition-all duration-300"
+                  whileHover={{ x: 10 }}
+                >
+                  <div className="p-3 bg-primary/20 rounded-full">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground">{item.label}</h4>
+                    <p className="text-muted-foreground">{item.value}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 
           {/* Contact Form */}
           <motion.div variants={itemVariants}>
-            <Card className="glass p-6 hover:neon-glow transition-all duration-300">
+            <Card className="p-6 border border-border bg-background shadow-md">
               <form className="space-y-6" onSubmit={handleSubmit} noValidate>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -148,7 +136,6 @@ const Contact = () => {
                     <Input
                       name="firstName"
                       placeholder="John"
-                      className="glass border-primary/30 focus:border-primary"
                       required
                       value={formData.firstName}
                       onChange={handleChange}
@@ -161,7 +148,6 @@ const Contact = () => {
                     <Input
                       name="lastName"
                       placeholder="Doe"
-                      className="glass border-primary/30 focus:border-primary"
                       required
                       value={formData.lastName}
                       onChange={handleChange}
@@ -177,7 +163,6 @@ const Contact = () => {
                     name="email"
                     type="email"
                     placeholder="john@example.com"
-                    className="glass border-primary/30 focus:border-primary"
                     required
                     value={formData.email}
                     onChange={handleChange}
@@ -191,7 +176,6 @@ const Contact = () => {
                   <Input
                     name="subject"
                     placeholder="Project Discussion"
-                    className="glass border-primary/30 focus:border-primary"
                     required
                     value={formData.subject}
                     onChange={handleChange}
@@ -206,7 +190,7 @@ const Contact = () => {
                     name="message"
                     placeholder="Tell me about your project..."
                     rows={5}
-                    className="glass border-primary/30 focus:border-primary resize-none"
+                    className="resize-none"
                     required
                     value={formData.message}
                     onChange={handleChange}
@@ -214,11 +198,7 @@ const Contact = () => {
                 </div>
 
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full neon-glow animate-pulse-glow"
-                  >
+                  <Button type="submit" size="lg" className="w-full">
                     <Send className="mr-2 h-5 w-5" />
                     Send Message
                   </Button>

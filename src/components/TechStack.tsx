@@ -80,14 +80,15 @@ const TechStack = () => {
   return (
     <section ref={ref} className="py-20 relative">
       <div className="container mx-auto px-4">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">Skills & Technologies</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+            Skills & Technologies
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             These are the technologies I work with to build amazing digital
@@ -95,6 +96,7 @@ const TechStack = () => {
           </p>
         </motion.div>
 
+        {/* Tech Cards */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
           variants={containerVariants}
@@ -105,7 +107,7 @@ const TechStack = () => {
             <motion.div
               key={tech.name}
               variants={itemVariants}
-              className="glass p-6 rounded-xl hover:neon-glow transition-all duration-300 text-center"
+              className="glass p-6 rounded-xl hover:shadow-[0_0_10px_rgba(0,0,0,0.2)] transition-all duration-300 text-center"
               whileHover={{ scale: 1.05 }}
             >
               <div className="flex flex-col items-center gap-2">
@@ -122,22 +124,22 @@ const TechStack = () => {
           ))}
         </motion.div>
 
-        {/* Floating tech icons */}
+        {/* Floating Dots (subtle) */}
         <div className="absolute inset-0 pointer-events-none">
           {Array.from({ length: 6 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-primary/20 rounded-full"
+              className="absolute w-2 h-2 bg-primary/10 rounded-full"
               style={{
                 left: `${20 + i * 15}%`,
                 top: `${30 + Math.sin(i) * 20}%`,
               }}
               animate={{
-                y: [-10, 10],
-                opacity: [0.2, 0.8, 0.2],
+                y: [-5, 5],
+                opacity: [0.1, 0.3, 0.1],
               }}
               transition={{
-                duration: 3 + i * 0.5,
+                duration: 4 + i * 0.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}

@@ -85,8 +85,8 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="gradient-text">Featured Projects</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+            Featured Projects
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             A showcase of my recent GitHub projects
@@ -106,7 +106,7 @@ const Projects = () => {
               whileHover={{ y: -10 }}
               className="group"
             >
-              <Card className="glass overflow-hidden h-full hover:neon-glow transition-all duration-300">
+              <Card className="glass overflow-hidden h-full hover:shadow-lg transition-all duration-300">
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-2 text-foreground">
                     {repo.name}

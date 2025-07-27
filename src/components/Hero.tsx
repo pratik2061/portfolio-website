@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Mail, Linkedin } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
 import axios from "axios";
@@ -38,9 +37,9 @@ export interface GitHubUserData {
     public_gists: number;
     followers: number;
     following: number;
-    created_at: string; // ISO date string
-    updated_at: string; // ISO date string
-    user_view_type?: string; // Not standard, possibly a custom field
+    created_at: string;
+    updated_at: string;
+    user_view_type?: string;
   };
 }
 
@@ -60,6 +59,7 @@ const Hero = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
   const [userData, setUserData] = useState<GitHubUserData["data"] | null>(null);
 
   const fetchGitHubData = async () => {
@@ -72,6 +72,7 @@ const Hero = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchGitHubData();
   }, []);
@@ -96,10 +97,11 @@ const Hero = () => {
         animate="visible"
       >
         <motion.div variants={itemVariants}>
-          <span className="inline-block px-4 py-2 mb-6 text-sm font-medium glass rounded-full border neon-glow">
+          <span className="inline-block px-4 py-2 mb-6 text-sm font-medium glass rounded-full border shadow-[0_0_8px_rgba(0,0,0,0.2)]">
             Available for Internship
           </span>
         </motion.div>
+
         <motion.div variants={itemVariants} className="mb-6">
           <img
             src={userData?.avatar_url}
@@ -138,7 +140,7 @@ const Hero = () => {
         >
           <a
             href="#contact"
-            className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-md neon-glow animate-pulse-glow bg-primary text-white hover:bg-primary/90 transition"
+            className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-md bg-primary text-white hover:bg-primary/90 transition shadow-[0_0_10px_rgba(255,255,255,0.3)]"
           >
             <Mail className="mr-2 h-5 w-5" />
             Get In Touch
@@ -161,7 +163,7 @@ const Hero = () => {
             href="https://github.com/pratik2061"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="p-3 glass rounded-full hover:neon-glow transition-all duration-300"
+            className="p-3 glass rounded-full hover:shadow-md transition-all duration-300"
           >
             <Github className="h-6 w-6" />
           </motion.a>
@@ -169,7 +171,7 @@ const Hero = () => {
             href="https://www.linkedin.com/in/pratik-sharma-937909290/"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="p-3 glass rounded-full hover:neon-glow transition-all duration-300"
+            className="p-3 glass rounded-full hover:shadow-md transition-all duration-300"
           >
             <Linkedin className="h-6 w-6" />
           </motion.a>
@@ -177,7 +179,7 @@ const Hero = () => {
             href="mailto:pratiksharma2061@gmail.com"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="p-3 glass rounded-full hover:neon-glow transition-all duration-300"
+            className="p-3 glass rounded-full hover:shadow-md transition-all duration-300"
           >
             <Mail className="h-6 w-6" />
           </motion.a>
