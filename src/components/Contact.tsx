@@ -75,7 +75,7 @@ const Contact = () => {
         </motion.div>
 
         <motion.div
-          className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto"
+          className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}

@@ -62,26 +62,19 @@ const Hero = () => {
     return () => window.removeEventListener("resize", updateBounce);
   }, []);
 
+  const handleScrollToNext = () => {
+    const section = document.getElementById("about");
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center px-4 overflow-hidden relative">
-      {/* Top floating badge on mobile */}
-      <span className="sm:hidden absolute top-10 left-1/2 -translate-x-1/2 px-4 py-1.5 text-xs font-medium glass rounded-full border shadow z-20">
-        Available for Internship
-      </span>
-
       <motion.div
         className="relative z-10 text-center w-full max-w-4xl mx-auto flex flex-col justify-center"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Static badge on larger screens */}
-        <motion.div variants={itemVariants} className="hidden sm:block">
-          <span className="inline-block px-4 py-1.5 mb-8 text-xs font-medium glass rounded-full border shadow">
-            Available for Internship
-          </span>
-        </motion.div>
-
         {/* Profile image & name */}
         <motion.div variants={itemVariants} className="mb-2">
           <img
@@ -110,7 +103,7 @@ const Hero = () => {
           className="text-sm md:text-base text-muted-foreground mb-6 max-w-lg mx-auto"
           variants={itemVariants}
         >
-          Welcome — glad to have you here! I'm a software developer who enjoys
+          Welcome! glad to have you here.I'm a software developer who enjoys
           building clean interfaces, smart backend systems, and seamless user
           interactions. Let's build something amazing together.
         </motion.p>
@@ -139,7 +132,7 @@ const Hero = () => {
 
         {/* Socials */}
         <motion.div
-          className="flex justify-center space-x-4 mb-10"
+          className="flex justify-center space-x-4 mb-20"
           variants={itemVariants}
         >
           <motion.a
@@ -168,19 +161,30 @@ const Hero = () => {
           </motion.a>
         </motion.div>
 
-        {/* Arrow Down */}
+        {/* Arrow Down with scroll */}
         <motion.div
           className="absolute bottom-0 left-0 right-0 flex justify-center"
-          variants={itemVariants}
-          animate={{ y: [0, bounceSettings.distance] }} 
+          initial={{ y: -20, opacity: 0 }}
+          animate={{
+            y: [-bounceSettings.distance, 0],
+            opacity: 1,
+          }}
           transition={{
-            duration: bounceSettings.duration,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "linear",
+            y: {
+              duration: bounceSettings.duration,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "easeInOut",
+            },
+            opacity: {
+              duration: 0.6,
+              ease: "easeOut",
+            },
           }}
         >
-          <ArrowDown className="h-6 w-6 text-blue-600" />
+          <button onClick={handleScrollToNext} className="p-2">
+            <ArrowDown className="h-6 w-6 text-blue-600" />
+          </button>
         </motion.div>
       </motion.div>
     </section>
