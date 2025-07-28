@@ -87,9 +87,7 @@ const Contact = () => {
                 Let's Connect
               </h3>
               <p className="text-muted-foreground mb-8">
-                I'm always open to discussing new opportunities and interesting projects. Whether you
-                need a full-stack solution or want to collaborate on something amazing, I'd love to
-                hear from you.
+                I'm always open to discussing new opportunities and interesting projects. 
               </p>
             </div>
 

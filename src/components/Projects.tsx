@@ -86,11 +86,8 @@ const Projects = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            Featured Projects
+             Projects
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A showcase of my recent GitHub projects
-          </p>
         </motion.div>
 
         <motion.div
@@ -138,23 +135,6 @@ const Projects = () => {
                         View on GitHub
                       </Button>
                     </a>
-                    {repo.homepage && (
-                      <a
-                        href={repo.homepage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1"
-                      >
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="w-full flex items-center justify-center gap-2"
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                          Live Site
-                        </Button>
-                      </a>
-                    )}
                   </div>
                 </div>
               </Card>

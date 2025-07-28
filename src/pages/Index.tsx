@@ -1,4 +1,5 @@
 import Contact from "@/components/Contact";
+import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
 import LightningBackground from "@/components/LightningBackground";
 import Navigation from "@/components/Navigation";
@@ -11,7 +12,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* <LightningBackground /> */}
-      <Navigation />
+      {/* <Navigation /> */}
 
       <main>
         <section id="home">
@@ -20,6 +21,9 @@ const Index = () => {
 
         <section id="about">
           <TechStack />
+        </section>
+        <section id="experience">
+          <Experience />
         </section>
 
         <section id="projects">

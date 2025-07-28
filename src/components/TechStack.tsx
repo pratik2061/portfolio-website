@@ -66,86 +66,66 @@ const TechStack = () => {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.1,
+        delayChildren: 0.15,
+        staggerChildren: 0.12,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <section ref={ref} className="py-20 relative">
-      <div className="container mx-auto px-4">
+    <section
+      ref={ref}
+      className="min-h-screen flex items-center justify-center py-20 relative"
+    >
+      <div className="container mx-auto px-6 max-w-5xl">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          initial={{ opacity: 0, y: 15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-3">
             Skills & Technologies
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            These are the technologies I work with to build amazing digital
-            experiences
-          </p>
+
         </motion.div>
 
         {/* Tech Cards */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {technologies.map((tech) => (
+          {technologies.map(({ name, logo }) => (
             <motion.div
-              key={tech.name}
+              key={name}
               variants={itemVariants}
-              className="glass p-6 rounded-xl hover:shadow-[0_0_10px_rgba(0,0,0,0.2)] transition-all duration-300 text-center"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{
+                scale: 1.1,
+                boxShadow: "0 8px 20px rgba(59, 130, 246, 0.3)",
+              }}
+              className="glass p-3 md:p-5 rounded-xl flex flex-col items-center justify-center cursor-default transition-shadow duration-300"
             >
-              <div className="flex flex-col items-center gap-2">
-                <img
-                  src={tech.logo}
-                  alt={`${tech.name} logo`}
-                  className="w-14 h-14 object-contain"
-                />
-                <h3 className="text-xs font-semibold text-foreground">
-                  {tech.name}
-                </h3>
-              </div>
+              <img
+                src={logo}
+                alt={`${name} logo`}
+                className="w-10 h-10 md:w-16 md:h-16 object-contain mb-2 md:mb-3"
+                loading="lazy"
+                draggable={false}
+              />
+              <h3 className="text-xs md:text-sm font-semibold text-foreground select-none">
+                {name}
+              </h3>
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Floating Dots (subtle) */}
-        <div className="absolute inset-0 pointer-events-none">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-primary/10 rounded-full"
-              style={{
-                left: `${20 + i * 15}%`,
-                top: `${30 + Math.sin(i) * 20}%`,
-              }}
-              animate={{
-                y: [-5, 5],
-                opacity: [0.1, 0.3, 0.1],
-              }}
-              transition={{
-                duration: 4 + i * 0.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
       </div>
     </section>
   );
