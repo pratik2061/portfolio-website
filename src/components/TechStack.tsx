@@ -5,59 +5,59 @@ import { useRef } from "react";
 const technologies = [
   {
     name: "React",
-    logo: "../../public/logo/React.jpg",
+    logo: "/logo/React.jpg",
   },
   {
     name: "TypeScript",
-     logo: "../../public/logo/typescript.jpg",
+     logo: "/logo/typescript.jpg",
   },
   {
     name: "Node js",
-    logo: "../../public/logo/node.jpg",
+    logo: "/logo/node.jpg",
   },
   {
     name: "Express js",
-    logo: "../../public/logo/express.jpg",
+    logo: "/logo/express.jpg",
   },
     {
     name: "Nest js",
-    logo: "../../public/logo/nest.jpg",
+    logo: "/logo/nest.jpg",
   },
   {
     name: "PostgreSQL",
-    logo: "../../public/logo/postgres.jpg",
+    logo: "/logo/postgres.jpg",
   },
   {
     name: "MongoDB",
-    logo: "../../public/logo/mongodb.jpg",
+    logo: "/logo/mongodb.jpg",
   },
   {
     name: "Docker",
-    logo: "../../public/logo/docker.jpg",
+    logo: "/logo/docker.jpg",
   },
   {
     name: "Tailwind CSS",
-    logo: "../../public/logo/tailwindcss.jpg",
+    logo: "/logo/tailwindcss.jpg",
   },
   {
     name: "Socket.IO",
-    logo: "../../public/logo/socket.jpg",
+    logo: "/logo/socket.jpg",
   },
   {
     name: "Git",
-    logo: "../../public/logo/git.jpg",
+    logo: "/logo/git.jpg",
   },
   {
     name: "Prisma",
-    logo: "../../public/logo/prisma.jpg",
+    logo: "/logo/prisma.jpg",
   },
   {
     name: "Redux",
-    logo: "../../public/logo/redux.jpg",
+    logo: "/logo/redux.jpg",
   },
     {
     name: "Zustand",
-    logo: "../../public/logo/zustand.jpg",
+    logo: "/logo/zustand.jpg",
   },
 ];
 
