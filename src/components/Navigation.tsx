@@ -60,11 +60,6 @@ const Navigation = () => {
                 />
               </motion.a>
             ))}
-            <a href="#contact">
-              <Button size="sm" className="" type="button">
-                Hire Me
-              </Button>
-            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -108,13 +103,6 @@ const Navigation = () => {
                 {item.name}
               </motion.a>
             ))}
-            <div className="px-4 pt-2">
-            <a href="#contact" className="w-full">
-              <Button size="sm" className=" w-full" type="button">
-                Hire Me
-              </Button>
-            </a>
-            </div>
           </div>
         </motion.div>
       </div>

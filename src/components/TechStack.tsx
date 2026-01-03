@@ -5,55 +5,59 @@ import { useRef } from "react";
 const technologies = [
   {
     name: "React",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    logo: "../../public/logo/React.jpg",
   },
   {
     name: "TypeScript",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+     logo: "../../public/logo/typescript.jpg",
   },
   {
-    name: "Node.js",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    name: "Node js",
+    logo: "../../public/logo/node.jpg",
   },
   {
-    name: "Express.js",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    name: "Express js",
+    logo: "../../public/logo/express.jpg",
+  },
+    {
+    name: "Nest js",
+    logo: "../../public/logo/nest.jpg",
   },
   {
     name: "PostgreSQL",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    logo: "../../public/logo/postgres.jpg",
   },
   {
     name: "MongoDB",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    logo: "../../public/logo/mongodb.jpg",
   },
   {
     name: "Docker",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    logo: "../../public/logo/docker.jpg",
   },
   {
     name: "Tailwind CSS",
-    logo: "https://imgs.search.brave.com/iVq-vnKDxsqDQl2aqvMmqhz6mrul_N8FAKNDv2Wk0DI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YXJlc291cmNlLnNm/bzIuZGlnaXRhbG9j/ZWFuc3BhY2VzLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAy/NC8wOS8xMDE3MDYx/MC9UYWlsd2luZC1D/U1MtTG9nby1QTkcu/cG5n",
+    logo: "../../public/logo/tailwindcss.jpg",
   },
   {
     name: "Socket.IO",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg",
+    logo: "../../public/logo/socket.jpg",
   },
   {
     name: "Git",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    logo: "../../public/logo/git.jpg",
   },
   {
     name: "Prisma",
-    logo: "https://www.svgrepo.com/show/354210/prisma.svg",
+    logo: "../../public/logo/prisma.jpg",
   },
   {
     name: "Redux",
-    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+    logo: "../../public/logo/redux.jpg",
   },
-  {
-    name: "Axios",
-    logo: "https://avatars.githubusercontent.com/u/32372333?s=200&v=4",
+    {
+    name: "Zustand",
+    logo: "../../public/logo/zustand.jpg",
   },
 ];
 
@@ -116,7 +120,7 @@ const TechStack = () => {
               <img
                 src={logo}
                 alt={`${name} logo`}
-                className="w-10 h-10 md:w-16 md:h-16 object-contain mb-2 md:mb-3"
+                className="w-10 h-10 md:w-28 md:h-20 object-contain mb-2 md:mb-3"
                 loading="lazy"
                 draggable={false}
               />
