@@ -50,7 +50,7 @@ const Projects = () => {
     fetchGitHubRepoData();
   }, []);
 
-  const targetRepos = ["KrishakMart", "siddhartha-web-portal", "Chess.com-Clone"];
+  const targetRepos = ["KrishakMart", "siddhartha-web-portal", "Chess.com-Clone", "MoodTune-AI"];
   const selectedRepos = repoData.filter((repo) => targetRepos.includes(repo.name));
 
   return (
