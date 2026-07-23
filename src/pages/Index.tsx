@@ -1,48 +1,36 @@
-import Contact from "@/components/Contact";
-import Experience from "@/components/Experience";
-import Hero from "@/components/Hero";
-import LightningBackground from "@/components/LightningBackground";
 import Navigation from "@/components/Navigation";
-import Projects from "@/components/Projects";
+import Hero from "@/components/Hero";
 import TechStack from "@/components/TechStack";
+import Experience from "@/components/Experience";
+import Projects from "@/components/Projects";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 const Index = () => {
-  // const currentYear = new Date().getFullYear();
-
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* <LightningBackground /> */}
+    <div className="min-h-screen bg-[#FAF8F5] text-[#1C1917] font-sans selection:bg-stone-200 selection:text-stone-900">
+      {/* Document Navigation */}
       <Navigation />
 
       <main>
-        <section id="home">
-          <Hero />
-        </section>
+        {/* Document Header / Hero */}
+        <Hero />
 
-        <section id="about">
-          <TechStack />
-        </section>
-        <section id="experience">
-          <Experience />
-        </section>
+        {/* Technical Skills & Competencies */}
+        <TechStack />
 
-        <section id="projects">
-          <Projects />
-        </section>
+        {/* Work Experience & Roles */}
+        <Experience />
 
-        <section id="contact">
-          <Contact />
-        </section>
+        {/* Technical Projects & Repositories */}
+        <Projects />
+
+        {/* Communication Channels / Contact */}
+        <Contact />
       </main>
 
-      {/* Footer */}
-      {/* <footer className="relative border-t border-gray-700 py-8 bg-black text-gray-200 shadow-lg">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm md:text-base">
-            © {currentYear} Full Stack Developer
-          </p>
-        </div>
-      </footer> */}
+      {/* Document Footer */}
+      <Footer />
     </div>
   );
 };

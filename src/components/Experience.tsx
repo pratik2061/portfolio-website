@@ -1,100 +1,149 @@
-import { motion } from "framer-motion";
-import { FiArrowRight } from "react-icons/fi";
-import { Button } from "./ui/button";
+import { Briefcase, ExternalLink, Calendar } from "lucide-react";
 
-const Exp_data = [
+interface ExperienceItem {
+  title: string;
+  company: string;
+  time: string;
+  description: string;
+  highlights: string[];
+  link: string;
+  skills: string[];
+  current?: boolean;
+}
+
+const experiences: ExperienceItem[] = [
   {
-    title: "Frontend Developer Intern",
-    time: "Duration: 2 Months",
+    title: "DevOps Engineer",
+    company: "Synthbit Group",
+    time: "Feb 2026 — Present",
     description:
-      "            Worked on real-world projects, learning and applying full-stack development concepts. Gained hands-on experience with modern web technologies and teamwork.",
-    link: "https://www.refobe.com",
-    button_txt: "Refobe",
+      "Engineered containerization and cloud infrastructure workflows for client projects and production services.",
+    highlights: [
+      "Deployed and configured virtual server environments on Azure VPS and Hostinger VPS (KVM)",
+      "Containerized microservices and web application dependencies using Docker and Docker Compose",
+      "Automated CI/CD build and deployment pipelines using GitHub Actions to streamline continuous integration",
+      "Managed DNS, SSL certificates, and server security configurations on cPanel web hosting platforms",
+    ],
+    link: "https://www.synthbitgroup.com/",
+    skills: ["Azure VPS", "Docker", "GitHub Actions", "Hostinger KVM", "cPanel", "Linux Shell"],
+    current: true,
   },
   {
-    title: "Backend Developer ",
-    time: "Duration: Dec-2025 - Present",
+    title: "Backend Developer",
+    company: "Synthbit Group",
+    time: "Dec 2025 — Present",
     description:
-      "Building and maintaining server-side applications, ensuring robust performance and scalability. Collaborating with frontend developers to integrate user-facing elements with server logic.",
+      "Architected server-side APIs, database models, and application infrastructure for high performance and scalability.",
+    highlights: [
+      "Designed RESTful endpoints and optimized database query performance with PostgreSQL and Prisma ORM",
+      "Built asynchronous message workflows, session handling, and secure authentication handlers in Node.js",
+      "Collaborated closely with client-side engineers to establish strict JSON schemas and API documentation",
+    ],
     link: "https://www.synthbitgroup.com/",
-    button_txt: "Synthbit Group",
+    skills: ["Node.js", "Express.js", "PostgreSQL", "Prisma ORM", "REST APIs"],
+    current: true,
+  },
+  {
+    title: "Frontend Developer Intern",
+    company: "Refobe",
+    time: "2 Months",
+    description:
+      "Developed responsive client web interface components and integrated REST backend services.",
+    highlights: [
+      "Built responsive, accessible UI modules using React and Tailwind CSS framework",
+      "Integrated state management and consumed RESTful server endpoints",
+      "Participated in agile code reviews, Git branching strategies, and sprint planning",
+    ],
+    link: "https://www.refobe.com",
+    skills: ["React", "TypeScript", "Tailwind CSS", "Git"],
   },
 ];
 
 const Experience = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
-    <section className="w-full bg-background px-4 py-16">
-      <div className="container mx-auto max-w-5xl px-4">
-        <motion.h3
-          className="text-3xl font-extrabold text-primary mb-8 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Experience
-        </motion.h3>
-        {Exp_data.map((data, index) => (
-          <motion.div
-            className="w-full max-w-5xl mx-auto bg-muted/10 p-8 my-6 rounded-xl shadow border border-input"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            key={index}
-          >
-            <motion.div
-              className="text-lg font-semibold text-foreground mb-2"
-              variants={itemVariants}
-            >
-              {data.title}
-            </motion.div>
+    <section id="experience" className="py-16 border-b border-stone-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-10 flex items-center justify-between border-b border-stone-200 pb-4">
+          <div>
+            <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-wider block mb-1">
+              03. Career History
+            </span>
+            <h2 className="text-2xl font-bold text-stone-900 font-sans tracking-tight">
+              Work Experience & Technical Roles
+            </h2>
+          </div>
+          <Briefcase className="w-5 h-5 text-stone-600 hidden sm:block" />
+        </div>
 
-            <motion.div
-              className="text-sm text-muted-foreground mb-4"
-              variants={itemVariants}
-            >
-              {data.time}
-            </motion.div>
+        {/* Experience Document List */}
+        <div className="space-y-8">
+          {experiences.map((exp, index) => (
+            <div key={index} className="doc-card p-6 sm:p-8 bg-white space-y-5">
+              
+              {/* Role Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-stone-200">
+                <div>
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-lg font-bold text-stone-900 font-sans">
+                      {exp.title}
+                    </h3>
+                    {exp.current && (
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        CURRENT ROLE
+                      </span>
+                    )}
+                  </div>
 
-            <motion.p
-              className="text-base text-slate-400 mb-6"
-              variants={itemVariants}
-            >
-              {data.description}
-            </motion.p>
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs font-mono text-stone-600 hover:text-stone-900 hover:underline mt-1"
+                  >
+                    <span>{exp.company}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
 
-            <motion.a
-              href={data.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={itemVariants}
-            >
-              <Button>
-                Visit {data.button_txt}{" "}
-                <FiArrowRight
-                  className="ml-2 inline-block"
-                  style={{ transform: "rotate(-40deg)" }}
-                  size={20}
-                />
-              </Button>
-            </motion.a>
-          </motion.div>
-        ))}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-stone-100 border border-stone-200 font-mono text-xs text-stone-700 self-start sm:self-auto">
+                  <Calendar className="w-3.5 h-3.5 text-stone-600" />
+                  <span>{exp.time}</span>
+                </div>
+              </div>
+
+              {/* Overview & Deliverables */}
+              <p className="text-sm text-stone-700 leading-relaxed font-sans">
+                {exp.description}
+              </p>
+
+              <div className="space-y-2">
+                <span className="text-xs font-mono uppercase tracking-wider font-semibold text-stone-600 block">
+                  Key Technical Impact & Deliverables:
+                </span>
+                <ul className="space-y-1.5 pl-4 list-disc text-xs sm:text-sm text-stone-800 font-sans">
+                  {exp.highlights.map((h, i) => (
+                    <li key={i} className="leading-relaxed">
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Technologies Used Tags */}
+              <div className="pt-2 flex flex-wrap gap-1.5">
+                {exp.skills.map((skill) => (
+                  <span key={skill} className="mono-tag">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

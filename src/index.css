@@ -2,79 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 210 24% 6%;
-    --foreground: 210 40% 98%;
+    --background: 40 20% 97%;
+    --foreground: 24 10% 10%;
 
-    --card: 210 24% 8%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 10%;
 
-    --popover: 210 24% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 10%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 24% 6%;
+    --primary: 24 10% 10%;
+    --primary-foreground: 40 20% 97%;
 
-    --secondary: 210 24% 12%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 40 10% 92%;
+    --secondary-foreground: 24 10% 10%;
 
-    --muted: 210 24% 12%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 40 10% 93%;
+    --muted-foreground: 25 5% 45%;
 
-    --accent: 270 91% 60%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 24 10% 10%;
+    --accent-foreground: 40 20% 97%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 210 24% 12%;
-    --input: 210 24% 12%;
-    --ring: 217 91% 60%;
+    --border: 30 6% 88%;
+    --input: 30 6% 88%;
+    --ring: 24 10% 10%;
 
     --radius: 0.5rem;
-
-    /* Portfolio specific colors */
-    --electric: 195 100% 50%;
-    --cyber-purple: 270 91% 60%;
-    --neon-green: 120 100% 50%;
-    --glass: 210 24% 8% / 0.8;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-lightning: linear-gradient(90deg, transparent, hsl(var(--electric)), transparent);
-    --gradient-glow: radial-gradient(circle, hsl(var(--primary) / 0.3), transparent 70%);
-    
-    /* Shadows */
-    --shadow-neon: 0 0 20px hsl(var(--primary) / 0.5);
-    --shadow-glow: 0 20px 40px -12px hsl(var(--primary) / 0.3);
-    --shadow-electric: 0 0 30px hsl(var(--electric) / 0.4);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    /* Dark mode uses same colors as our cyberpunk theme */
-    --background: 210 24% 6%;
-    --foreground: 210 40% 98%;
   }
 }
 
@@ -83,53 +41,65 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground overflow-x-hidden;
+  html {
+    font-family: 'Inter', sans-serif;
+    color-scheme: light;
   }
 
-  /* Custom scrollbar */
+  body {
+    @apply bg-[#FAF8F5] text-[#1C1917] overflow-x-hidden antialiased selection:bg-stone-200 selection:text-stone-900;
+  }
+
+  /* Custom subtle scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
+    background: #FAF8F5;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary));
-    border-radius: 4px;
+    background: #D6D3D1;
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--accent));
+    background: #A8A29E;
   }
 }
 
 @layer utilities {
-  .glass {
-    background: hsl(var(--glass));
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border));
+  .doc-card {
+    background: #FFFFFF;
+    border: 1px solid #E7E5E4;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
   }
 
-  .neon-glow {
-    box-shadow: var(--shadow-neon);
+  .doc-card-hover {
+    transition: all 0.2s ease-in-out;
   }
 
-  .electric-glow {
-    box-shadow: var(--shadow-electric);
+  .doc-card-hover:hover {
+    border-color: #A8A29E;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
   }
 
-  .gradient-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .doc-nav {
+    background: rgba(250, 248, 245, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #E7E5E4;
   }
 
-  .lightning-beam {
-    background: var(--gradient-lightning);
-    opacity: 0.7;
+  .mono-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background: #F5F2EB;
+    color: #44403C;
+    border: 1px solid #E7E5E4;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.375rem;
   }
 }

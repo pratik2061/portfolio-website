@@ -1,15 +1,29 @@
-import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 20);
+
+      const sections = ["home", "about", "experience", "projects", "contact"];
+      const scrollPosition = window.scrollY + 200;
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const top = element.offsetTop;
+          const height = element.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -17,97 +31,101 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Skills", href: "#about" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { num: "01", name: "About", href: "#home", id: "home" },
+    { num: "02", name: "Skills", href: "#about", id: "about" },
+    { num: "03", name: "Experience", href: "#experience", id: "experience" },
+    { num: "04", name: "Projects", href: "#projects", id: "projects" },
+    { num: "05", name: "Contact", href: "#contact", id: "contact" },
   ];
 
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass border-b" : "bg-transparent"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        isScrolled
+          ? "bg-[#FAF8F5]/90 backdrop-blur-md border-b border-stone-300 shadow-sm"
+          : "bg-[#FAF8F5] border-b border-stone-200/80"
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <motion.div
-            className="text-xl font-bold gradient-text"
-            whileHover={{ scale: 1.05 }}
-          >
-            &lt;Developer/&gt;
-          </motion.div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        
+        {/* Brand Name */}
+        <a href="#home" className="flex items-center gap-2.5 group">
+          <span className="font-bold text-slate-900 tracking-tight text-base font-sans group-hover:text-stone-600 transition-colors">
+            PRATIK SHARMA
+          </span>
+        </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <motion.a
+        {/* Desktop Numbered Nav Links */}
+        <nav className="hidden md:flex items-center gap-6">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
                 key={item.name}
                 href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-200 relative"
-                whileHover={{ y: -2 }}
+                className={`text-xs font-medium transition-colors flex items-center gap-1.5 py-1 ${
+                  isActive
+                    ? "text-stone-900 font-semibold border-b-2 border-stone-900"
+                    : "text-stone-700 hover:text-stone-950"
+                }`}
               >
-                {item.name}
-                <motion.div
-                  className="absolute bottom-0 left-0 w-full h-0.5 bg-primary origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </motion.a>
-            ))}
-          </div>
+                <span className="font-mono text-[11px] text-stone-600">{item.num}.</span>
+                <span>{item.name}</span>
+              </a>
+            );
+          })}
+        </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="glass"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </Button>
-          </div>
+        {/* Contact CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href="mailto:pratiksharma2061@gmail.com"
+            className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded text-xs font-medium text-stone-900 bg-white border border-stone-300 hover:border-stone-400 hover:bg-stone-50 transition-all shadow-xs"
+          >
+            <span>Get in touch</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-stone-700" />
+          </a>
         </div>
 
-        {/* Mobile Menu */}
-        <motion.div
-          className={`md:hidden overflow-hidden ${
-            isMobileMenuOpen ? "block" : "hidden"
-          }`}
-          initial={{ height: 0, opacity: 0 }}
-          animate={{
-            height: isMobileMenuOpen ? "auto" : 0,
-            opacity: isMobileMenuOpen ? 1 : 0,
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="py-4 space-y-2 glass mt-2 rounded-lg">
-            {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                className="block px-4 py-2 text-foreground hover:text-primary transition-colors duration-200"
-                onClick={() => setIsMobileMenuOpen(false)}
-                whileHover={{ x: 10 }}
-              >
-                {item.name}
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+        {/* Mobile Toggle */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-1.5 rounded text-stone-700 hover:text-stone-900 hover:bg-stone-200/60 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+
       </div>
-    </motion.nav>
+
+      {/* Mobile Drawer */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-[#FAF8F5] border-b border-stone-300 px-6 py-4 space-y-3">
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-2 py-2 text-sm text-stone-800 hover:text-stone-950 font-medium"
+            >
+              <span className="font-mono text-xs text-stone-600">{item.num}.</span>
+              <span>{item.name}</span>
+            </a>
+          ))}
+          <div className="pt-2 border-t border-stone-200">
+            <a
+              href="mailto:pratiksharma2061@gmail.com"
+              className="inline-flex items-center gap-1.5 w-full justify-center px-4 py-2 rounded text-xs font-semibold bg-stone-900 text-white"
+            >
+              <span>Get in touch</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      )}
+    </header>
   );
 };
 

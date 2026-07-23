@@ -1,135 +1,109 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { Code2, Server, Cloud, Cpu } from "lucide-react";
 
-const technologies = [
+interface SkillCategory {
+  num: string;
+  category: string;
+  icon: any;
+  skills: { name: string; detail: string }[];
+}
+
+const skillCategories: SkillCategory[] = [
   {
-    name: "React",
-    logo: "/logo/React.jpg",
-  },
-  {
-    name: "TypeScript",
-     logo: "/logo/typescript.jpg",
-  },
-  {
-    name: "Node js",
-    logo: "/logo/node.jpg",
-  },
-  {
-    name: "Express js",
-    logo: "/logo/express.jpg",
-  },
-    {
-    name: "Nest js",
-    logo: "/logo/nest.jpg",
-  },
-  {
-    name: "PostgreSQL",
-    logo: "/logo/postgres.jpg",
+    num: "01",
+    category: "Frontend Engineering",
+    icon: Code2,
+    skills: [
+      { name: "React", detail: "UI Library & Component Architecture" },
+      { name: "TypeScript", detail: "Static Type Safety" },
+      { name: "Tailwind CSS", detail: "Utility Design System" },
+      { name: "Redux", detail: "Global State Management" },
+      { name: "Zustand", detail: "Lightweight State" },
+    ],
   },
   {
-    name: "MongoDB",
-    logo: "/logo/mongodb.jpg",
+    num: "02",
+    category: "Backend & Database Systems",
+    icon: Server,
+    skills: [
+      { name: "Node.js", detail: "Event-driven Runtime" },
+      { name: "Express.js", detail: "RESTful API Framework" },
+      { name: "Nest.js", detail: "Enterprise Architecture" },
+      { name: "PostgreSQL", detail: "Relational Database Engine" },
+      { name: "MongoDB", detail: "Document NoSQL Store" },
+      { name: "Prisma", detail: "ORM & Migration Tool" },
+      { name: "Socket.IO", detail: "Real-Time WebSocket Engine" },
+    ],
   },
   {
-    name: "Docker",
-    logo: "/logo/docker.jpg",
-  },
-  {
-    name: "Tailwind CSS",
-    logo: "/logo/tailwindcss.jpg",
-  },
-  {
-    name: "Socket.IO",
-    logo: "/logo/socket.jpg",
-  },
-  {
-    name: "Git",
-    logo: "/logo/git.jpg",
-  },
-  {
-    name: "Prisma",
-    logo: "/logo/prisma.jpg",
-  },
-  {
-    name: "Redux",
-    logo: "/logo/redux.jpg",
-  },
-    {
-    name: "Zustand",
-    logo: "/logo/zustand.jpg",
+    num: "03",
+    category: "DevOps & Cloud Infrastructure",
+    icon: Cloud,
+    skills: [
+      { name: "Docker", detail: "Containerization & Docker Compose" },
+      { name: "Azure", detail: "VPS Cloud Infrastructure" },
+      { name: "GitHub Actions", detail: "Automated CI/CD Pipelines" },
+      { name: "Hostinger", detail: "VPS (KVM) Server Management" },
+      { name: "cPanel", detail: "Web Hosting Administration" },
+      { name: "Git", detail: "Distributed Version Control" },
+    ],
   },
 ];
 
 const TechStack = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.15,
-        staggerChildren: 0.12,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   return (
-    <section
-      ref={ref}
-      className="min-h-screen flex items-center justify-center py-20 relative"
-    >
-      <div className="container mx-auto px-6 max-w-5xl">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
-        >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-3">
-            Skills & Technologies
-          </h2>
+    <section id="about" className="py-16 border-b border-stone-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Title */}
+        <div className="mb-10 flex items-center justify-between border-b border-stone-200 pb-4">
+          <div>
+            <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-wider block mb-1">
+              02. Technical Competencies
+            </span>
+            <h2 className="text-2xl font-bold text-stone-900 font-sans tracking-tight">
+              Skills & Core Technologies
+            </h2>
+          </div>
+          <Cpu className="w-5 h-5 text-stone-600 hidden sm:block" />
+        </div>
 
-        </motion.div>
+        {/* Categories Grid */}
+        <div className="space-y-8">
+          {skillCategories.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <div key={cat.num} className="doc-card p-6 sm:p-8 bg-white">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-stone-200">
+                  <span className="font-mono text-xs font-bold text-stone-600 bg-stone-100 px-2 py-1 rounded border border-stone-200">
+                    SECTION {cat.num}
+                  </span>
+                  <h3 className="text-lg font-bold text-stone-900 font-sans">
+                    {cat.category}
+                  </h3>
+                </div>
 
-        {/* Tech Cards */}
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {technologies.map(({ name, logo }) => (
-            <motion.div
-              key={name}
-              variants={itemVariants}
-              whileHover={{
-                scale: 1.1,
-                boxShadow: "0 8px 20px rgba(59, 130, 246, 0.3)",
-              }}
-              className="glass p-3 md:p-5 rounded-xl flex flex-col items-center justify-center cursor-default transition-shadow duration-300"
-            >
-              <img
-                src={logo}
-                alt={`${name} logo`}
-                className="w-10 h-10 md:w-28 md:h-20 object-contain mb-2 md:mb-3"
-                loading="lazy"
-                draggable={false}
-              />
-              <h3 className="text-xs md:text-sm font-semibold text-foreground select-none">
-                {name}
-              </h3>
-            </motion.div>
-          ))}
-        </motion.div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {cat.skills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="p-3.5 rounded-lg bg-[#FAF8F5] border border-stone-200/90 flex flex-col justify-between"
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-sm text-stone-900 font-sans">
+                          {skill.name}
+                        </span>
+                      </div>
+                      <span className="text-xs text-stone-600 font-mono">
+                        {skill.detail}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

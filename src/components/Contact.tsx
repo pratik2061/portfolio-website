@@ -1,15 +1,10 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Card } from '@/components/ui/card';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, Phone, MapPin, Send, Check, Copy, MessageSquare } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Contact = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -19,22 +14,6 @@ const Contact = () => {
     message: ''
   });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -42,12 +21,25 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleCopy = (text: string, type: 'email' | 'phone') => {
+    navigator.clipboard.writeText(text);
+    if (type === 'email') {
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2000);
+      toast.success("Email copied to clipboard!");
+    } else {
+      setCopiedPhone(true);
+      setTimeout(() => setCopiedPhone(false), 2000);
+      toast.success("Phone number copied to clipboard!");
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { firstName, lastName, email, subject, message } = formData;
 
     if (!firstName || !lastName || !email || !subject || !message) {
-      alert('Please fill in all required fields.');
+      toast.error("Please complete all required form fields.");
       return;
     }
 
@@ -57,154 +49,187 @@ const Contact = () => {
       `Name: ${firstName} ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`
     )}`;
 
+    toast.success("Opening default email client...");
     window.location.href = mailtoLink;
   };
 
   return (
-    <section ref={ref} className="py-20 relative">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            Get In Touch
-          </h2>
-        </motion.div>
+    <section id="contact" className="py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-10 flex items-center justify-between border-b border-stone-200 pb-4">
+          <div>
+            <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-wider block mb-1">
+              05. Communication Channels
+            </span>
+            <h2 className="text-2xl font-bold text-stone-900 font-sans tracking-tight">
+              Get In Touch & Hiring Inquiries
+            </h2>
+          </div>
+          <MessageSquare className="w-5 h-5 text-stone-600 hidden sm:block" />
+        </div>
 
-        <motion.div
-          className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {/* Contact Info */}
-          <motion.div variants={itemVariants} className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-semibold mb-4 text-foreground">
-                Let's Connect
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Direct Info */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="doc-card p-6 sm:p-8 bg-white space-y-6">
+              <h3 className="text-lg font-bold text-stone-900 font-sans">
+                Direct Contact Channels
               </h3>
-              <p className="text-muted-foreground mb-8">
-                I'm always open to discussing new opportunities and interesting projects. 
+
+              <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans">
+                Available for full-time software engineering roles, DevOps consulting, and contract assignments.
               </p>
-            </div>
 
-            <div className="space-y-4">
-              {[{
-                icon: <Mail className="h-5 w-5 text-primary" />,
-                label: "Email",
-                value: "pratiksharma2061@gmail.com"
-              }, {
-                icon: <Phone className="h-5 w-5 text-primary" />,
-                label: "Phone",
-                value: "+977-9840697481"
-              }, {
-                icon: <MapPin className="h-5 w-5 text-primary" />,
-                label: "Location",
-                value: "Butwal-8, Kalikanagar"
-              }].map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center space-x-4 p-4 rounded-lg border border-border bg-background shadow-sm transition-all duration-300"
-                  whileHover={{ x: 10 }}
-                >
-                  <div className="p-3 bg-primary/20 rounded-full">
-                    {item.icon}
+              <div className="space-y-3 pt-2">
+                {/* Email Item */}
+                <div className="p-3.5 rounded-lg bg-[#FAF8F5] border border-stone-200/90 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <Mail className="w-4 h-4 text-stone-600 shrink-0" />
+                    <div className="overflow-hidden">
+                      <div className="text-[10px] font-mono text-stone-600 uppercase font-semibold">Email</div>
+                      <div className="text-xs sm:text-sm font-medium text-stone-900 truncate">pratiksharma2061@gmail.com</div>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-medium text-foreground">{item.label}</h4>
-                    <p className="text-muted-foreground">{item.value}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                  <button
+                    onClick={() => handleCopy("pratiksharma2061@gmail.com", "email")}
+                    className="p-1.5 rounded bg-white border border-stone-300 text-stone-700 hover:bg-stone-100 transition-colors shrink-0"
+                    title="Copy Email"
+                  >
+                    {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
 
-          {/* Contact Form */}
-          <motion.div variants={itemVariants}>
-            <Card className="p-6 border border-border bg-background shadow-md">
-              <form className="space-y-6" onSubmit={handleSubmit} noValidate>
-                <div className="grid md:grid-cols-2 gap-4">
+                {/* Phone Item */}
+                <div className="p-3.5 rounded-lg bg-[#FAF8F5] border border-stone-200/90 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <Phone className="w-4 h-4 text-stone-600 shrink-0" />
+                    <div>
+                      <div className="text-[10px] font-mono text-stone-600 uppercase font-semibold">Phone</div>
+                      <div className="text-xs sm:text-sm font-medium text-stone-900">+977-9840697481</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleCopy("+977-9840697481", "phone")}
+                    className="p-1.5 rounded bg-white border border-stone-300 text-stone-700 hover:bg-stone-100 transition-colors"
+                    title="Copy Phone"
+                  >
+                    {copiedPhone ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                </div>
+
+                {/* Location Item */}
+                <div className="p-3.5 rounded-lg bg-[#FAF8F5] border border-stone-200/90 flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-stone-600 shrink-0" />
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      First Name
+                    <div className="text-[10px] font-mono text-stone-600 uppercase font-semibold">Location</div>
+                    <div className="text-xs sm:text-sm font-medium text-stone-900">Butwal-8, Kalikanagar, Nepal</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Contact Form */}
+          <div className="lg:col-span-7">
+            <div className="doc-card p-6 sm:p-8 bg-white">
+              <h3 className="text-lg font-bold text-stone-900 font-sans mb-6">
+                Send Direct Message
+              </h3>
+
+              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-mono text-stone-700 font-semibold uppercase mb-1.5">
+                      First Name *
                     </label>
-                    <Input
+                    <input
+                      type="text"
                       name="firstName"
-                      placeholder="John"
+                      placeholder="Jane"
                       required
                       value={formData.firstName}
                       onChange={handleChange}
+                      className="w-full px-3.5 py-2.5 rounded bg-[#FAF8F5] border border-stone-300 text-stone-900 text-sm focus:outline-none focus:border-stone-900 transition-colors"
                     />
                   </div>
+
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Last Name
+                    <label className="block text-xs font-mono text-stone-700 font-semibold uppercase mb-1.5">
+                      Last Name *
                     </label>
-                    <Input
+                    <input
+                      type="text"
                       name="lastName"
-                      placeholder="Doe"
+                      placeholder="Smith"
                       required
                       value={formData.lastName}
                       onChange={handleChange}
+                      className="w-full px-3.5 py-2.5 rounded bg-[#FAF8F5] border border-stone-300 text-stone-900 text-sm focus:outline-none focus:border-stone-900 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Email
+                  <label className="block text-xs font-mono text-stone-700 font-semibold uppercase mb-1.5">
+                    Email Address *
                   </label>
-                  <Input
-                    name="email"
+                  <input
                     type="email"
-                    placeholder="john@example.com"
+                    name="email"
+                    placeholder="jane@company.com"
                     required
                     value={formData.email}
                     onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded bg-[#FAF8F5] border border-stone-300 text-stone-900 text-sm focus:outline-none focus:border-stone-900 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Subject
+                  <label className="block text-xs font-mono text-stone-700 font-semibold uppercase mb-1.5">
+                    Subject *
                   </label>
-                  <Input
+                  <input
+                    type="text"
                     name="subject"
-                    placeholder="Project Discussion"
+                    placeholder="Software Engineer Role / Project Opportunity"
                     required
                     value={formData.subject}
                     onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded bg-[#FAF8F5] border border-stone-300 text-stone-900 text-sm focus:outline-none focus:border-stone-900 transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
-                    Message
+                  <label className="block text-xs font-mono text-stone-700 font-semibold uppercase mb-1.5">
+                    Message Details *
                   </label>
-                  <Textarea
+                  <textarea
                     name="message"
-                    placeholder="Tell me about your project..."
-                    rows={5}
-                    className="resize-none"
+                    rows={4}
+                    placeholder="Briefly describe the project scope or role requirements..."
                     required
                     value={formData.message}
                     onChange={handleChange}
+                    className="w-full px-3.5 py-2.5 rounded bg-[#FAF8F5] border border-stone-300 text-stone-900 text-sm focus:outline-none focus:border-stone-900 transition-colors resize-none"
                   />
                 </div>
 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button type="submit" size="lg" className="w-full">
-                    <Send className="mr-2 h-5 w-5" />
-                    Send Message
-                  </Button>
-                </motion.div>
+                <button
+                  type="submit"
+                  className="w-full py-3 rounded bg-stone-900 text-white font-semibold text-xs uppercase tracking-wider hover:bg-stone-800 transition-colors flex items-center justify-center gap-2"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Send Message via Mail Client</span>
+                </button>
               </form>
-            </Card>
-          </motion.div>
-        </motion.div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

@@ -1,9 +1,5 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
+import { useEffect, useState } from "react";
+import { FolderGit2, ExternalLink, Github, Star, Code2 } from "lucide-react";
 import axios from "axios";
 
 export interface GitHubRepo {
@@ -12,28 +8,59 @@ export interface GitHubRepo {
   description: string | null;
   language: string | null;
   html_url: string;
+  stargazers_count?: number;
 }
 
+interface TechnicalProject {
+  name: string;
+  title: string;
+  tag: string;
+  summary: string;
+  highlights: string[];
+  tech: string[];
+  githubUrl: string;
+}
+
+const projectsList: TechnicalProject[] = [
+  {
+    name: "KrishakMart",
+    title: "KrishakMart — Agritech E-Commerce Platform",
+    tag: "FULL-STACK WEB APP",
+    summary: "Digital marketplace connecting local agricultural producers directly with buyers, featuring real-time inventory management and dynamic order workflows.",
+    highlights: [
+      "Built resilient client interface using React, Tailwind CSS, and optimized state management",
+      "Designed Express.js REST APIs with MongoDB document schemas for flexible product listing cataloging",
+    ],
+    tech: ["React", "Node.js", "Express.js", "MongoDB", "Tailwind CSS"],
+    githubUrl: "https://github.com/pratik2061/KrishakMart",
+  },
+  {
+    name: "MoodTune-AI",
+    title: "MoodTune AI — Intelligent Music Recommendation Engine",
+    tag: "AI & WEB INTEGRATION",
+    summary: "AI-assisted audio matching application analyzing user mood state and preference telemetry to curate tailored audio playlists.",
+    highlights: [
+      "Integrated machine learning API endpoints with TypeScript React client architecture",
+      "Implemented responsive UI state management and seamless background audio metadata fetching",
+    ],
+    tech: ["TypeScript", "React", "Node.js", "AI API Integration", "Tailwind CSS"],
+    githubUrl: "https://github.com/pratik2061/MoodTune-AI",
+  },
+  {
+    name: "siddhartha-web-portal",
+    title: "Siddhartha Institutional Web Portal",
+    tag: "ENTERPRISE PORTAL",
+    summary: "Institutional administrative portal supporting event publishing, news release workflows, and staff management directories.",
+    highlights: [
+      "Structured relational PostgreSQL database schemas managed with Prisma ORM",
+      "Created modular TypeScript React dashboard components for content administrators",
+    ],
+    tech: ["React", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS"],
+    githubUrl: "https://github.com/pratik2061/siddhartha-web-portal",
+  },
+];
+
 const Projects = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0.2,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
-  };
-
   const [repoData, setRepoData] = useState<GitHubRepo[]>([]);
 
   useEffect(() => {
@@ -44,76 +71,124 @@ const Projects = () => {
         );
         setRepoData(res.data);
       } catch (error) {
-        console.error("Failed to fetch GitHub repos:", error);
+        console.log("GitHub API fallback for repo metrics");
       }
     };
     fetchGitHubRepoData();
   }, []);
 
-  const targetRepos = ["KrishakMart", "siddhartha-web-portal", "Chess.com-Clone", "MoodTune-AI"];
-  const selectedRepos = repoData.filter((repo) => targetRepos.includes(repo.name));
-
   return (
-    <section ref={ref} className="py-20 relative">
-      <div className="container mx-auto max-w-5xl px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            Projects
-          </h2>
-        </motion.div>
+    <section id="projects" className="py-16 border-b border-stone-200">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-10 flex items-center justify-between border-b border-stone-200 pb-4">
+          <div>
+            <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-wider block mb-1">
+              04. Technical Projects
+            </span>
+            <h2 className="text-2xl font-bold text-stone-900 font-sans tracking-tight">
+              Featured Software Repositories
+            </h2>
+          </div>
+          <FolderGit2 className="w-5 h-5 text-stone-600 hidden sm:block" />
+        </div>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {selectedRepos.map((repo) => (
-            <motion.div
-              key={repo.id}
-              variants={itemVariants}
-              whileHover={{ y: -6 }}
-              className="flex"
-            >
-              <Card className="glass p-4 w-full flex flex-col justify-between h-auto max-h-[360px] hover:shadow-lg transition-all duration-300">
+        {/* Project Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {projectsList.map((project) => {
+            const fetched = repoData.find(
+              (r) => r.name.toLowerCase() === project.name.toLowerCase()
+            );
+            const stars = fetched?.stargazers_count ?? 0;
+            const repoUrl = fetched?.html_url || project.githubUrl;
+
+            return (
+              <div
+                key={project.name}
+                className="doc-card p-6 bg-white flex flex-col justify-between doc-card-hover space-y-4"
+              >
                 <div>
-                  <h3 className="text-lg font-semibold mb-2 text-foreground truncate">
-                    {repo.name}
+                  {/* Top Bar */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="font-mono text-[11px] font-bold text-stone-700 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
+                      {project.tag}
+                    </span>
+
+                    {stars > 0 && (
+                      <span className="inline-flex items-center gap-1 text-xs font-mono text-stone-600">
+                        <Star className="w-3.5 h-3.5 fill-stone-400 text-stone-500" />
+                        <span>{stars} stars</span>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title & Overview */}
+                  <h3 className="text-lg font-bold text-stone-900 font-sans mb-2">
+                    {project.title}
                   </h3>
-                  <p className="text-muted-foreground mb-3 text-sm line-clamp-3">
-                    {repo.description ?? "No description provided."}
+
+                  <p className="text-xs sm:text-sm text-stone-700 leading-relaxed font-sans mb-4">
+                    {project.summary}
                   </p>
 
-                  {repo.language && (
-                    <span className="inline-block mb-3 px-2 py-1 text-xs font-medium bg-primary/20 text-primary rounded-md">
-                      {repo.language}
+                  {/* Key Highlights */}
+                  <div className="space-y-1.5 mb-4">
+                    <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-stone-600 block">
+                      Technical Details:
                     </span>
-                  )}
+                    <ul className="space-y-1 pl-3.5 list-disc text-xs text-stone-700 font-sans">
+                      {project.highlights.map((h, idx) => (
+                        <li key={idx} className="leading-relaxed">
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
-                <a
-                  href={repo.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto"
-                >
-                  <Button
-                    size="sm"
-                    className="w-full flex items-center justify-center gap-2"
-                  >
-                    <Github className="h-4 w-4" />
-                    GitHub
-                  </Button>
-                </a>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+                {/* Footer Link & Tech Tags */}
+                <div className="pt-4 border-t border-stone-200 space-y-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tech.map((t) => (
+                      <span key={t} className="mono-tag">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="pt-1 flex items-center justify-between text-xs">
+                    <a
+                      href={repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 font-medium text-stone-900 hover:text-stone-600 transition-colors"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>View Repository on GitHub</span>
+                      <ExternalLink className="w-3 h-3 text-stone-600" />
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+
+        {/* GitHub Link CTA */}
+        <div className="mt-8 text-center">
+          <a
+            href="https://github.com/pratik2061?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-stone-700 hover:text-stone-950 underline"
+          >
+            <Code2 className="w-3.5 h-3.5" />
+            <span>Browse all repositories on GitHub (@pratik2061)</span>
+          </a>
+        </div>
+
       </div>
     </section>
   );
