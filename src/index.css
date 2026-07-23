@@ -3,103 +3,29 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 40 20% 97%;
-    --foreground: 24 10% 10%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 24 10% 10%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 24 10% 10%;
-
-    --primary: 24 10% 10%;
-    --primary-foreground: 40 20% 97%;
-
-    --secondary: 40 10% 92%;
-    --secondary-foreground: 24 10% 10%;
-
-    --muted: 40 10% 93%;
-    --muted-foreground: 25 5% 45%;
-
-    --accent: 24 10% 10%;
-    --accent-foreground: 40 20% 97%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 30 6% 88%;
-    --input: 30 6% 88%;
-    --ring: 24 10% 10%;
-
-    --radius: 0.5rem;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
   html {
     font-family: 'Inter', sans-serif;
-    color-scheme: light;
   }
 
   body {
-    @apply bg-[#FAF8F5] text-[#1C1917] overflow-x-hidden antialiased selection:bg-stone-200 selection:text-stone-900;
+    @apply bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 antialiased selection:bg-zinc-200 dark:selection:bg-zinc-800 transition-colors duration-200;
   }
 
   /* Custom subtle scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #FAF8F5;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #D6D3D1;
+    background: #d4d4d8;
     border-radius: 9999px;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #A8A29E;
-  }
-}
-
-@layer utilities {
-  .doc-card {
-    background: #FFFFFF;
-    border: 1px solid #E7E5E4;
-    border-radius: 0.75rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
-  }
-
-  .doc-card-hover {
-    transition: all 0.2s ease-in-out;
-  }
-
-  .doc-card-hover:hover {
-    border-color: #A8A29E;
-    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
-  }
-
-  .doc-nav {
-    background: rgba(250, 248, 245, 0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid #E7E5E4;
-  }
-
-  .mono-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    background: #F5F2EB;
-    color: #44403C;
-    border: 1px solid #E7E5E4;
-    padding: 0.2rem 0.55rem;
-    border-radius: 0.375rem;
+  .dark ::-webkit-scrollbar-thumb {
+    background: #3f3f46;
   }
 }
