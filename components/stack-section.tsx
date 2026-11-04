@@ -96,29 +96,35 @@ export function StackSection() {
           {STACK_CATEGORIES.map((category, idx) => (
             <div
               key={idx}
-              className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8 p-6 sm:p-7"
+              className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4 lg:gap-8 p-4 sm:p-6 lg:p-7"
             >
               {/* Category Name Column */}
-              <div className="flex items-center gap-2.5 lg:w-64 shrink-0">
-                <span className="inline-block h-2 w-2 bg-primary/70 dark:bg-neutral/70" />
-                <h3 className="text-sm sm:text-base font-semibold text-primary dark:text-neutral tracking-wide">
-                  {category.title}
-                </h3>
+              <div className="flex flex-col gap-1 lg:w-64 shrink-0">
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-block h-2 w-2 bg-primary/70 dark:bg-neutral/70 shrink-0" />
+                  <h3 className="text-sm sm:text-base font-semibold text-primary dark:text-neutral tracking-wide">
+                    {category.title}
+                  </h3>
+                </div>
+                {/* Mobile-visible description */}
+                <span className="xl:hidden text-[11px] text-tertiary font-sans pl-4.5">
+                  {category.description}
+                </span>
               </div>
 
               {/* Skills Tags Column */}
-              <div className="flex-1 flex flex-wrap items-center gap-2 sm:gap-2.5">
+              <div className="flex-1 flex flex-wrap items-center gap-1.5 sm:gap-2">
                 {category.skills.map((skill, sIdx) => (
                   <span
                     key={sIdx}
-                    className="border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/30 px-2.5 py-1 text-[10px] sm:text-[11px] font-mono text-primary dark:text-neutral tracking-wider"
+                    className="border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/30 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-mono text-primary dark:text-neutral tracking-wider"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
 
-              {/* Competency Note Column */}
+              {/* Competency Note Column (Desktop xl) */}
               <div className="hidden xl:block text-right shrink-0 lg:w-72">
                 <span className="text-xs text-tertiary font-sans">
                   {category.description}

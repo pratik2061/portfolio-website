@@ -39,22 +39,22 @@ export function WritingSection() {
           {ARTICLES.map((article, index) => (
             <div
               key={index}
-              className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 p-6 sm:p-7 group hover:bg-secondary/10 dark:hover:bg-secondary/20 transition-colors"
+              className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 p-4 sm:p-6 md:p-7 group hover:bg-secondary/10 dark:hover:bg-secondary/20 transition-colors"
             >
               {/* Left Column: Metadata, Title & Summary */}
               <div className="flex flex-col gap-1.5 flex-1">
                 {/* Category & Date */}
                 <div className="flex items-center gap-3 text-xs text-tertiary">
-                  <span className="tracking-widest text-[11px] sm:text-xs">
+                  <span className="tracking-widest text-[10px] sm:text-xs">
                     {article.category}
                   </span>
-                  <span className="tracking-wider text-[11px] sm:text-xs">
+                  <span className="tracking-wider text-[10px] sm:text-xs">
                     {article.date}
                   </span>
                 </div>
 
                 {/* Article Title */}
-                <h3 className="font-sans text-lg sm:text-xl font-bold text-primary dark:text-neutral  transition-colors">
+                <h3 className="font-sans text-base sm:text-xl font-bold text-primary dark:text-neutral transition-colors">
                   <a href={article.url || "#"} className="cursor-pointer">
                     {article.title}
                   </a>
@@ -67,7 +67,7 @@ export function WritingSection() {
               </div>
 
               {/* Right Column: Read Post Link */}
-              <div className="shrink-0 pt-2 md:pt-0">
+              <div className="shrink-0 pt-1 md:pt-0">
                 <a
                   href={article.url || "#"}
                   className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-primary dark:text-neutral underline underline-offset-4 decoration-secondary/60 hover:decoration-primary dark:hover:decoration-neutral transition-colors cursor-pointer"

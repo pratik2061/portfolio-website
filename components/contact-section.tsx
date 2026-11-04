@@ -45,26 +45,26 @@ export function ContactSection() {
         {/* 2-Column Contact Container */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Direct Credentials & Status */}
-          <div className="lg:col-span-7 border border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-6 sm:p-8 transition-colors">
+          <div className="lg:col-span-7 border border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-4 sm:p-6 md:p-8 transition-colors">
             {/* Mission / Positioning */}
-            <p className="font-sans text-base sm:text-lg text-primary dark:text-neutral leading-relaxed">
+            <p className="font-sans text-sm sm:text-base lg:text-lg text-primary dark:text-neutral leading-relaxed">
               Open to Backend and Full-Stack engineering roles, contract opportunities, and collaborating on scalable web applications, APIs, or AI agent workflows.
             </p>
 
             {/* Divider */}
-            <div className="my-6 h-px w-full bg-secondary/30 dark:bg-secondary/60" />
+            <div className="my-5 sm:my-6 h-px w-full bg-secondary/30 dark:bg-secondary/60" />
 
             {/* Direct Email Field */}
             <div>
-              <span className="block text-[11px] text-tertiary tracking-widest uppercase mb-1.5">
+              <span className="block text-[10px] sm:text-[11px] text-tertiary tracking-widest uppercase mb-1.5">
                 DIRECT EMAIL
               </span>
-              <div className="flex items-center justify-between border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-xs sm:text-sm text-primary dark:text-neutral">
+              <div className="flex items-center justify-between gap-2 border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-xs sm:text-sm text-primary dark:text-neutral min-w-0">
                 <span className="truncate">{email}</span>
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="border border-secondary/50 dark:border-secondary bg-secondary/20 dark:bg-secondary/40 px-2.5 py-0.5 text-[10px] sm:text-[11px] text-primary dark:text-neutral hover:bg-secondary/30 transition-colors cursor-pointer shrink-0 ml-2"
+                  className="border border-secondary/50 dark:border-secondary bg-secondary/20 dark:bg-secondary/40 px-2 sm:px-2.5 py-0.5 text-[10px] sm:text-[11px] text-primary dark:text-neutral hover:bg-secondary/30 transition-colors cursor-pointer shrink-0"
                 >
                   {copied ? "COPIED!" : "COPY"}
                 </button>
@@ -73,7 +73,7 @@ export function ContactSection() {
 
             {/* Office Locations */}
             <div className="mt-5">
-              <span className="block text-[11px] text-tertiary tracking-widest uppercase mb-1.5">
+              <span className="block text-[10px] sm:text-[11px] text-tertiary tracking-widest uppercase mb-1.5">
                 LOCATIONS
               </span>
               <p className="text-xs sm:text-sm text-primary dark:text-neutral leading-relaxed">
@@ -83,8 +83,8 @@ export function ContactSection() {
           </div>
 
           {/* Right Column: Direct Dispatch Form */}
-          <div className="lg:col-span-5 border border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-6 sm:p-8 transition-colors">
-            <span className="block text-[11px] text-tertiary tracking-widest uppercase mb-4">
+          <div className="lg:col-span-5 border border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-4 sm:p-6 md:p-8 transition-colors">
+            <span className="block text-[10px] sm:text-[11px] text-tertiary tracking-widest uppercase mb-4">
               DIRECT DISPATCH
             </span>
 
@@ -102,7 +102,7 @@ export function ContactSection() {
                   type="text"
                   required
                   placeholder="e.g. Acme Corp / Alex"
-                  className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-xs sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors"
+                  className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-base sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors"
                 />
               </div>
 
@@ -119,7 +119,7 @@ export function ContactSection() {
                   type="email"
                   required
                   placeholder="you@domain.com"
-                  className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-xs sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors"
+                  className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-base sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors"
                 />
               </div>
 
@@ -136,7 +136,7 @@ export function ContactSection() {
                   required
                   rows={4}
                   placeholder="Brief project outline, timeline, or position requirements..."
-                  className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-xs sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors resize-y"
+                  className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-base sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors resize-y"
                 />
               </div>
 

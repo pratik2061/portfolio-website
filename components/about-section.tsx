@@ -17,7 +17,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="relative w-full  flex items-center justify-center min-h-dvh"
+      className="relative w-full flex items-center justify-center min-h-dvh py-12 sm:py-16 md:py-20"
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-10 xl:gap-14">
@@ -32,16 +32,18 @@ export function AboutSection() {
               </div>
             </div>
 
-            <h1 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary dark:text-neutral leading-[1.08]">
+            <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary dark:text-neutral leading-[1.12]">
               FullStack Engineer building distributed backends and high performance web interfaces.
             </h1>
 
-            <p className="max-w-xl font-sans text-base sm:text-lg leading-relaxed text-tertiary">Over 2 years of experience building backend-focused web applications. I work with Node.js, NestJS, Express, and React to build fast, secure APIs and clean interfaces. I design microservices based architectures and build AI agents and workflow automation with n8n. For data and infrastructure, I use PostgreSQL, MongoDB, Redis, Prisma, and Docker, with CI/CD pipelines through GitHub Actions.</p>
+            <p className="max-w-xl font-sans text-sm sm:text-base lg:text-lg leading-relaxed text-tertiary">
+              Over 2 years of experience building backend-focused web applications. I work with Node.js, NestJS, Express, and React to build fast, secure APIs and clean interfaces. I design microservices based architectures and build AI agents and workflow automation with n8n. For data and infrastructure, I use PostgreSQL, MongoDB, Redis, Prisma, and Docker, with CI/CD pipelines through GitHub Actions.
+            </p>
 
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 font-mono text-xs sm:text-sm">
               <a
-                href="#writing"
-                className="inline-flex items-center justify-center bg-primary text-neutral dark:bg-neutral dark:text-primary px-4 py-2.5 font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                href="#projects"
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-primary text-neutral dark:bg-neutral dark:text-primary px-4 py-2.5 font-medium hover:opacity-90 transition-opacity cursor-pointer text-center"
               >
                 View Case Studies
               </a>
@@ -50,13 +52,12 @@ export function AboutSection() {
                 href="/resume/pratikResume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center border border-secondary/50 dark:border-secondary bg-transparent px-4 py-2.5 text-primary dark:text-neutral hover:bg-secondary/20 transition-colors cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center border border-secondary/50 dark:border-secondary bg-transparent px-4 py-2.5 text-primary dark:text-neutral hover:bg-secondary/20 transition-colors cursor-pointer text-center"
               >
                 Read Resume (PDF)
               </a>
 
-
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 pt-1 sm:pt-0">
                 <Link
                   href="https://github.com/pratik2061"
                   target="_blank"
@@ -95,28 +96,28 @@ export function AboutSection() {
             </div>
 
             {/* Telemetry Specs Table */}
-            <div className="lg:mt-20 md:mt-10 mt-5 flex flex-col divide-y divide-secondary/30 dark:divide-secondary/60 text-[11px] sm:text-xs">
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-tertiary tracking-wider">CORE STACK</span>
-                <span className="font-medium text-primary dark:text-neutral tracking-wider">
+            <div className="lg:mt-20 md:mt-10 mt-6 flex flex-col divide-y divide-secondary/30 dark:divide-secondary/60 text-[11px] sm:text-xs">
+              <div className="flex items-center justify-between gap-3 py-2.5">
+                <span className="text-tertiary tracking-wider shrink-0">CORE STACK</span>
+                <span className="font-medium text-primary dark:text-neutral tracking-wider text-right">
                   Node js / Nest js / React js
                 </span>
               </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-tertiary tracking-wider">INFRASTRUCTURE</span>
-                <span className="font-medium text-primary dark:text-neutral tracking-wider">
+              <div className="flex items-center justify-between gap-3 py-2.5">
+                <span className="text-tertiary tracking-wider shrink-0">INFRASTRUCTURE</span>
+                <span className="font-medium text-primary dark:text-neutral tracking-wider text-right">
                   Docker / Jenkins / Kubernetes
                 </span>
               </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-tertiary tracking-wider">EXPERIENCE</span>
-                <span className="font-medium text-primary dark:text-neutral tracking-wider">
+              <div className="flex items-center justify-between gap-3 py-2.5">
+                <span className="text-tertiary tracking-wider shrink-0">EXPERIENCE</span>
+                <span className="font-medium text-primary dark:text-neutral tracking-wider text-right">
                   2 YEARS
                 </span>
               </div>
-              <div className="flex items-center justify-between py-2.5">
-                <span className="text-tertiary tracking-wider">PRIMARY FOCUS</span>
-                <span className="font-medium text-primary dark:text-neutral tracking-wider">
+              <div className="flex items-center justify-between gap-3 py-2.5">
+                <span className="text-tertiary tracking-wider shrink-0">PRIMARY FOCUS</span>
+                <span className="font-medium text-primary dark:text-neutral tracking-wider text-right">
                   Microservices &amp; Agentic AI workflows
                 </span>
               </div>

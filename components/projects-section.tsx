@@ -107,13 +107,13 @@ export function ProjectsSection() {
           {PROJECTS.map((project, index) => (
             <div
               key={index}
-              className="flex flex-col hover:bg-secondary/15 hover:cursor-pointer  justify-between border border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-6 sm:p-7 transition-colors hover:border-tertiary/70"
+              className="flex flex-col hover:bg-secondary/15 hover:cursor-pointer justify-between border border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-4 sm:p-6 md:p-7 transition-colors hover:border-tertiary/70"
             >
               <div>
                 {/* Card Meta & Action Links */}
                 <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
-                  <div className="flex items-center gap-1.5 text-[11px] text-tertiary">
-                    <span className="inline-block h-1.5 w-1.5 bg-tertiary" />
+                  <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] text-tertiary">
+                    <span className="inline-block h-1.5 w-1.5 bg-tertiary shrink-0" />
                     <span className="tracking-widest">{project.category}</span>
                   </div>
 
@@ -124,10 +124,10 @@ export function ProjectsSection() {
                         href={project.demoUrl}
                         target={project.demoUrl !== "#" ? "_blank" : undefined}
                         rel={project.demoUrl !== "#" ? "noopener noreferrer" : undefined}
-                        className="inline-flex items-center gap-1 border border-secondary/50 dark:border-secondary bg-secondary/10 dark:bg-secondary/30 px-2.5 py-1 text-[11px] text-primary dark:text-neutral hover:bg-secondary/20 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 border border-secondary/50 dark:border-secondary bg-secondary/10 dark:bg-secondary/30 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] text-primary dark:text-neutral hover:bg-secondary/20 transition-colors cursor-pointer"
                       >
                         <span>Live Demo</span>
-                        <GoArrowUpRight className="text-[12px]" />
+                        <GoArrowUpRight className="text-[11px] sm:text-[12px]" />
                       </a>
                     )}
                     {project.codeUrl && (
@@ -135,28 +135,28 @@ export function ProjectsSection() {
                         href={project.codeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 border border-secondary/50 dark:border-secondary bg-secondary/10 dark:bg-secondary/30 px-2.5 py-1 text-[11px] text-primary dark:text-neutral hover:bg-secondary/20 transition-colors"
+                        className="inline-flex items-center gap-1 border border-secondary/50 dark:border-secondary bg-secondary/10 dark:bg-secondary/30 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] text-primary dark:text-neutral hover:bg-secondary/20 transition-colors"
                       >
-                        <FaGithub className="text-[11px]" />
+                        <FaGithub className="text-[10px] sm:text-[11px]" />
                         <span>Code</span>
-                        <GoArrowUpRight className="text-[11px]" />
+                        <GoArrowUpRight className="text-[10px] sm:text-[11px]" />
                       </Link>
                     )}
                   </div>
                 </div>
 
                 {/* Project Title */}
-                <h3 className="font-sans text-xl sm:text-2xl font-bold text-primary dark:text-neutral mt-1">
+                <h3 className="font-sans text-lg sm:text-2xl font-bold text-primary dark:text-neutral mt-1">
                   {project.title}
                 </h3>
 
                 {/* Divider */}
-                <div className="my-4 h-px w-full bg-secondary/30 dark:bg-secondary/60" />
+                <div className="my-3 sm:my-4 h-px w-full bg-secondary/30 dark:bg-secondary/60" />
 
                 {/* Architectural Bullet Points */}
-                <ul className="flex flex-col gap-3 font-sans text-sm text-tertiary">
+                <ul className="flex flex-col gap-2.5 sm:gap-3 font-sans text-xs sm:text-sm text-tertiary">
                   {project.bullets.map((bullet, bIdx) => (
-                    <li key={bIdx} className="flex items-start gap-2.5">
+                    <li key={bIdx} className="flex items-start gap-2 sm:gap-2.5">
                       <span className="font-mono text-tertiary select-none pt-0.5">
                         ›
                       </span>
@@ -167,11 +167,11 @@ export function ProjectsSection() {
               </div>
 
               {/* Tech Stack Badges */}
-              <div className="mt-6 flex flex-wrap items-center gap-2 pt-2 border-t border-secondary/20 dark:border-secondary/40">
+              <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 border-t border-secondary/20 dark:border-secondary/40">
                 {project.tags.map((tag, tIdx) => (
                   <span
                     key={tIdx}
-                    className="border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/30 px-2.5 py-1 text-[10px] sm:text-[11px] font-mono text-primary dark:text-neutral tracking-wider"
+                    className="border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/30 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-mono text-primary dark:text-neutral tracking-wider"
                   >
                     {tag}
                   </span>

@@ -69,30 +69,30 @@ export function ExperienceSection() {
           {EXPERIENCES.map((exp, index) => (
             <div
               key={index}
-              className="w-full border-3 border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-6 sm:p-8 transition-colors rounded"
+              className="w-full border-2 sm:border-3 border-secondary/40 dark:border-secondary bg-neutral/40 dark:bg-primary/50 p-4 sm:p-6 md:p-8 transition-colors rounded"
             >
               {/* Card Meta Row */}
-              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-tertiary pb-1">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 text-xs text-tertiary pb-1">
                 <span className="tracking-widest text-[11px] sm:text-xs">
                   {exp.category}
                 </span>
-                <span className="tracking-wider text-[11px] sm:text-xs">
+                <span className="tracking-wider text-[10px] sm:text-xs">
                   {exp.period} // {exp.location}
                 </span>
               </div>
 
               {/* Role Title */}
-              <h3 className="font-sans text-xl sm:text-2xl font-bold text-primary dark:text-neutral">
+              <h3 className="font-sans text-lg sm:text-2xl font-bold text-primary dark:text-neutral mt-0.5">
                 {exp.role}
               </h3>
 
               {/* Divider */}
-              <div className="my-4 h-px w-full bg-secondary/30 dark:bg-secondary/60" />
+              <div className="my-3 sm:my-4 h-px w-full bg-secondary/30 dark:bg-secondary/60" />
 
               {/* Bullet Points */}
-              <ul className="flex flex-col gap-3 font-sans text-sm sm:text-base text-tertiary">
+              <ul className="flex flex-col gap-2.5 sm:gap-3 font-sans text-xs sm:text-sm md:text-base text-tertiary">
                 {exp.bullets.map((bullet, bIdx) => (
-                  <li key={bIdx} className="flex items-start gap-2.5">
+                  <li key={bIdx} className="flex items-start gap-2 sm:gap-2.5">
                     <span className="font-mono text-tertiary select-none pt-0.5">
                       ›
                     </span>
@@ -102,11 +102,11 @@ export function ExperienceSection() {
               </ul>
 
               {/* Tech Stack Tags */}
-              <div className="mt-6 flex flex-wrap items-center gap-2 pt-2">
+              <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2">
                 {exp.tags.map((tag, tIdx) => (
                   <span
                     key={tIdx}
-                    className="border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/30 px-2.5 py-1 text-[10px] sm:text-xs font-mono text-primary dark:text-neutral tracking-wider"
+                    className="border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/30 px-2 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs font-mono text-primary dark:text-neutral tracking-wider"
                   >
                     {tag}
                   </span>

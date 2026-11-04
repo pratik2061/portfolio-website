@@ -283,6 +283,7 @@ export function GithubContributions({
                                 }
                                 onMouseEnter={() => day.date && setHoveredDay(day)}
                                 onMouseLeave={() => setHoveredDay(null)}
+                                onClick={() => day.date && setHoveredDay(day)}
                                 className={`aspect-square w-full rounded-[1px] transition-transform hover:scale-125 hover:z-10 cursor-pointer ${getLevelColor(
                                   day.level,
                                   !day.date
@@ -296,8 +297,13 @@ export function GithubContributions({
                   </div>
                 </div>
 
-                {/* Hover Tooltip Readout */}
-                <div className="min-h-[22px] mt-3 flex items-center justify-between text-[11px] border-t border-secondary/20 dark:border-secondary/50 pt-3">
+                {/* Mobile Scroll Prompt */}
+                <div className="sm:hidden flex items-center justify-center gap-1.5 text-[10px] text-tertiary pt-1 select-none">
+                  <span>← Swipe horizontally to explore 52 weeks →</span>
+                </div>
+
+                {/* Hover / Tap Tooltip Readout */}
+                <div className="min-h-[22px] mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] border-t border-secondary/20 dark:border-secondary/50 pt-3">
                   <div className="text-tertiary">
                     {hoveredDay ? (
                       <span className="text-primary dark:text-neutral">
@@ -318,12 +324,12 @@ export function GithubContributions({
                         </span>
                       </span>
                     ) : (
-                      <span>Hover over squares to inspect activity</span>
+                      <span>Hover or tap squares to inspect activity</span>
                     )}
                   </div>
 
                   {/* Legend */}
-                  <div className="flex items-center gap-1.5 text-[10px] text-tertiary">
+                  <div className="flex items-center gap-1.5 text-[10px] text-tertiary shrink-0">
                     <span>Less</span>
                     <span className="inline-block h-2.5 w-2.5 rounded-[1px] bg-secondary/20 dark:bg-secondary/40 border border-secondary/30 dark:border-secondary/60" />
                     <span className="inline-block h-2.5 w-2.5 rounded-[1px] bg-emerald-300 dark:bg-emerald-950 border border-emerald-400/40 dark:border-emerald-800/40" />
