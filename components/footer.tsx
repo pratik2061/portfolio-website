@@ -15,7 +15,7 @@ export function Footer() {
   const linkedinUrl = "https://www.linkedin.com/in/pratik-sharma-937909290/";
 
   return (
-    <footer className="w-full border-t border-primary dark:border-secondary bg-neutral/60 dark:bg-primary font-mono text-[11px] sm:text-xs text-tertiary transition-colors">
+    <footer className="w-full border-t border-secondary/30 dark:border-secondary bg-neutral dark:bg-primary font-mono text-[11px] sm:text-xs text-tertiary transition-colors">
       <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between gap-4 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="text-center sm:text-left tracking-wider">
           <span>
