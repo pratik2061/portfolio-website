@@ -4,11 +4,15 @@ import { useState } from "react";
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [name, setName] = useState("");
+  const [returnEmail, setReturnEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "fallback" | "error"
+  >("idle");
+  const [feedbackMsg, setFeedbackMsg] = useState("");
 
   const email = "pratiksharma2061@gmail.com";
-  const pgp = "4A8F 90B2 331E C82A 77D9 E501 F192 B800 24E1 990C";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(email);
@@ -16,16 +20,63 @@ export function ContactSection() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const openMailtoFallback = (n = name, re = returnEmail, msg = message) => {
+    const subject = encodeURIComponent(
+      `[Portfolio Dispatch] From ${n.trim() || "Visitor"}`
+    );
+    const bodyText = encodeURIComponent(
+      `Name / Organization: ${n.trim()}\nReturn Email: ${re.trim()}\n\nEngineering Brief:\n${msg.trim()}`
+    );
+    window.location.href = `mailto:${email}?subject=${subject}&body=${bodyText}`;
+  };
 
-    // Simulate dispatch transmission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 4000);
-    }, 1000);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!name.trim() || !returnEmail.trim() || !message.trim()) return;
+
+    setStatus("sending");
+    setFeedbackMsg("");
+
+    try {
+      const res = await fetch("/api/dispatch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: returnEmail.trim(),
+          message: message.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus("success");
+        setFeedbackMsg("✓ Dispatch sent successfully to Pratik.");
+        setName("");
+        setReturnEmail("");
+        setMessage("");
+        setTimeout(() => {
+          setStatus("idle");
+          setFeedbackMsg("");
+        }, 6000);
+      } else if (data.notConfigured) {
+        // Direct server SMTP not yet configured in .env -> draft in user's email client
+        openMailtoFallback(name, returnEmail, message);
+        setStatus("fallback");
+        setFeedbackMsg("✓ Opened email client with your prefilled dispatch.");
+        setTimeout(() => {
+          setStatus("idle");
+          setFeedbackMsg("");
+        }, 6000);
+      } else {
+        throw new Error(data.error || "Failed to transmit dispatch.");
+      }
+    } catch (err: unknown) {
+      const errMsg = err instanceof Error ? err.message : "Transmission failed.";
+      setStatus("error");
+      setFeedbackMsg(errMsg);
+    }
   };
 
   return (
@@ -101,6 +152,8 @@ export function ContactSection() {
                   id="dispatch-name"
                   type="text"
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Acme Corp / Alex"
                   className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-base sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors"
                 />
@@ -118,6 +171,8 @@ export function ContactSection() {
                   id="dispatch-email"
                   type="email"
                   required
+                  value={returnEmail}
+                  onChange={(e) => setReturnEmail(e.target.value)}
                   placeholder="you@domain.com"
                   className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-base sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors"
                 />
@@ -135,21 +190,47 @@ export function ContactSection() {
                   id="dispatch-message"
                   required
                   rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   placeholder="Brief project outline, timeline, or position requirements..."
                   className="w-full border border-secondary/50 dark:border-secondary bg-secondary/15 dark:bg-secondary/25 px-3 py-2 text-base sm:text-sm text-primary dark:text-neutral placeholder:text-tertiary/40 focus:outline-none focus:border-tertiary transition-colors resize-y"
                 />
               </div>
 
+              {/* Feedback Alert if present */}
+              {feedbackMsg && (
+                <div
+                  className={`mt-4 border px-3 py-2 text-xs font-mono ${
+                    status === "error"
+                      ? "border-red-500/50 bg-red-500/10 text-red-500 dark:text-red-400"
+                      : "border-emerald-500/50 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  }`}
+                >
+                  <p>{feedbackMsg}</p>
+                  {status === "error" && (
+                    <button
+                      type="button"
+                      onClick={() => openMailtoFallback()}
+                      className="mt-2 inline-block underline text-[11px] text-primary dark:text-neutral hover:opacity-80 cursor-pointer"
+                    >
+                      Click here to send via your email client instead →
+                    </button>
+                  )}
+                </div>
+              )}
+
               {/* Send Button */}
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={status === "sending"}
                 className="mt-5 w-full bg-primary text-neutral dark:bg-neutral dark:text-primary py-3 text-xs sm:text-sm font-semibold tracking-wider hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5"
               >
-                {isSubmitting ? (
+                {status === "sending" ? (
                   <span>TRANSMITTING...</span>
-                ) : submitted ? (
+                ) : status === "success" ? (
                   <span>✓ DISPATCH SENT</span>
+                ) : status === "fallback" ? (
+                  <span>✓ EMAIL DRAFT OPENED</span>
                 ) : (
                   <span>Send Dispatch →</span>
                 )}

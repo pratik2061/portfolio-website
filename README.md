@@ -50,12 +50,20 @@ pnpm install
 
 ### 3. Configure environment variables
 
-Create a `.env` file in the root directory:
+Create a `.env` or `.env.local` file in the root directory:
 
 ```env
 NEXT_PUBLIC_GITHUB_URL=https://github.com/pratik2061
 NEXT_PUBLIC_SITE_URL=https://pratiksharma.dev
+
+# Email Dispatch via Nodemailer (e.g. Gmail App Password)
+EMAIL_USER=pratiksharma2061@gmail.com
+EMAIL_PASS=your_gmail_app_password
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=465
 ```
+
+> **Note**: To generate a Gmail App Password for direct background delivery, visit [Google App Passwords](https://myaccount.google.com/apppasswords), create an app named `Portfolio`, and paste the 16-character code into `EMAIL_PASS`. If omitted, the form automatically falls back to drafting directly in the visitor's email client.
 
 ### 4. Run the development server
 
@@ -72,6 +80,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```text
 ├── app/
 │   ├── api/
+│   │   ├── dispatch/                # Email transmission endpoint (Nodemailer)
 │   │   └── github-contributions/    # Cached GitHub contributions proxy
 │   ├── globals.css                  # Tailwind v4 theme variables
 │   ├── layout.tsx                   # Root layout, metadata & JSON-LD
