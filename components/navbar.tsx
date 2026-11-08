@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/hooks/use-theme";
 
 interface NavItem {
@@ -11,12 +12,12 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "About", href: "#about", id: "about" },
-  { label: "Experience", href: "#experience", id: "experience" },
-  { label: "Projects", href: "#projects", id: "projects" },
-  { label: "Stack", href: "#stack", id: "stack" },
-  { label: "Writing", href: "#writing", id: "writing" },
-  { label: "Contact", href: "#contact", id: "contact" },
+  { label: "About", href: "/#about", id: "about" },
+  { label: "Experience", href: "/#experience", id: "experience" },
+  { label: "Projects", href: "/#projects", id: "projects" },
+  { label: "Stack", href: "/#stack", id: "stack" },
+  { label: "Writing", href: "/#writing", id: "writing" },
+  { label: "Contact", href: "/#contact", id: "contact" },
 ];
 
 const AuthorDetail = {
@@ -25,7 +26,13 @@ const AuthorDetail = {
 };
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const isWritingPage = pathname.startsWith("/writing");
+
   const [activeItem, setActiveItem] = useState("About");
+  const currentActiveItem = isWritingPage ? "Writing" : activeItem;
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { resolvedTheme, toggleTheme, mounted } = useTheme();
 
@@ -42,7 +49,7 @@ export function Navbar() {
 
   // Measure and align the stretchy indicator to the active link
   const updateIndicator = useCallback(() => {
-    const currentItemEl = itemRefs.current[activeItem];
+    const currentItemEl = itemRefs.current[currentActiveItem];
     const navContainerEl = navRef.current;
     if (currentItemEl && navContainerEl) {
       const navRect = navContainerEl.getBoundingClientRect();
@@ -54,7 +61,7 @@ export function Navbar() {
         opacity: 1,
       });
     }
-  }, [activeItem]);
+  }, [currentActiveItem]);
 
   // Recalculate on activeItem change and window resize
   useEffect(() => {
@@ -77,8 +84,10 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Scroll spy: automatically shift highlight to the active section
+  // Scroll spy: automatically shift highlight to the active section ONLY on homepage
   useEffect(() => {
+    if (!isHomePage) return;
+
     const handleScroll = () => {
       if (isClickingRef.current) return;
 
@@ -117,22 +126,30 @@ export function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
-    e.preventDefault();
-    setActiveItem(item.label);
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: NavItem
+  ) => {
     setMobileMenuOpen(false);
-    isClickingRef.current = true;
 
-    const targetEl = document.getElementById(item.id);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: "smooth" });
+    if (isHomePage) {
+      e.preventDefault();
+      setActiveItem(item.label);
+      isClickingRef.current = true;
+
+      const targetEl = document.getElementById(item.id);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: "smooth" });
+      }
+
+      setTimeout(() => {
+        isClickingRef.current = false;
+      }, 800);
+    } else {
+      setActiveItem(item.label);
     }
-
-    setTimeout(() => {
-      isClickingRef.current = false;
-    }, 800);
   };
 
   return (
@@ -147,7 +164,7 @@ export function Navbar() {
             >
               <span className="inline-block h-2 w-2 bg-primary dark:bg-neutral shrink-0" />
               <span className="hidden sm:inline">
-                {AuthorDetail.name} // {AuthorDetail.position}
+                {AuthorDetail.name} {"//"} {AuthorDetail.position}
               </span>
               <span className="sm:hidden font-semibold">
                 {AuthorDetail.name}
@@ -161,9 +178,9 @@ export function Navbar() {
             className="relative hidden md:flex items-center gap-6 lg:gap-8 text-xs lg:text-sm py-1"
           >
             {NAV_ITEMS.map((item) => {
-              const isActive = activeItem === item.label;
+              const isActive = currentActiveItem === item.label;
               return (
-                <a
+                <Link
                   key={item.label}
                   ref={(el) => {
                     itemRefs.current[item.label] = el;
@@ -177,13 +194,13 @@ export function Navbar() {
                   }`}
                 >
                   <span>{item.label}</span>
-                </a>
+                </Link>
               );
             })}
 
             {/* Venom Stretchy Elastic Underline Indicator */}
             <span
-              className="absolute bottom-[-4px] left-0 h-[2.5px] bg-primary dark:bg-neutral rounded-full pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.22,1.5,0.36,1)]"
+              className="absolute -bottom-1 left-0 h-[2.5px] bg-primary dark:bg-neutral rounded-full pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.22,1.5,0.36,1)]"
               style={{
                 transform: `translateX(${indicatorStyle.left}px)`,
                 width: `${indicatorStyle.width}px`,
@@ -206,34 +223,30 @@ export function Navbar() {
               {!mounted ? (
                 <span className="inline-block h-3.5 w-12 sm:w-14 animate-pulse bg-tertiary/20" />
               ) : resolvedTheme === "dark" ? (
-                <>
-                  <span className="tracking-wider text-[11px] sm:text-xs">
-                    [LIGHT]
-                  </span>
-                </>
+                <span className="tracking-wider text-[11px] sm:text-xs">
+                  [LIGHT]
+                </span>
               ) : (
-                <>
-                  <span className="tracking-wider text-[11px] sm:text-xs">
-                    [DARK]
-                  </span>
-                </>
+                <span className="tracking-wider text-[11px] sm:text-xs">
+                  [DARK]
+                </span>
               )}
             </button>
 
             {/* Desktop Hire Me Button */}
-            <a
-              href="#contact"
+            <Link
+              href="/#contact"
               onClick={(e) =>
                 handleLinkClick(e, {
                   label: "Contact",
-                  href: "#contact",
+                  href: "/#contact",
                   id: "contact",
                 })
               }
               className="hidden sm:inline-flex h-8 items-center justify-center border border-secondary/40 dark:border-secondary bg-transparent px-3 text-xs sm:text-sm text-primary dark:text-neutral hover:bg-primary hover:text-neutral dark:hover:bg-neutral dark:hover:text-primary hover:border-transparent transition-all cursor-pointer"
             >
               Hire Me
-            </a>
+            </Link>
 
             {/* Mobile Menu Hamburger */}
             <button
@@ -252,9 +265,9 @@ export function Navbar() {
           <div className="border-t border-secondary/30 dark:border-secondary bg-neutral dark:bg-primary md:hidden font-mono px-4 py-3 shadow-lg">
             <nav className="flex flex-col gap-2.5">
               {NAV_ITEMS.map((item) => {
-                const isActive = activeItem === item.label;
+                const isActive = currentActiveItem === item.label;
                 return (
-                  <a
+                  <Link
                     key={item.label}
                     href={item.href}
                     onClick={(e) => handleLinkClick(e, item)}
@@ -270,25 +283,25 @@ export function Navbar() {
                         ● ACTIVE
                       </span>
                     )}
-                  </a>
+                  </Link>
                 );
               })}
 
               {/* Mobile Hire Me CTA */}
               <div className="pt-2 border-t border-secondary/20 dark:border-secondary/40 mt-1">
-                <a
-                  href="#contact"
+                <Link
+                  href="/#contact"
                   onClick={(e) =>
                     handleLinkClick(e, {
                       label: "Contact",
-                      href: "#contact",
+                      href: "/#contact",
                       id: "contact",
                     })
                   }
                   className="w-full flex items-center justify-center py-2 bg-primary text-neutral dark:bg-neutral dark:text-primary text-xs font-semibold tracking-wider hover:opacity-90 transition-opacity"
                 >
                   Hire Me →
-                </a>
+                </Link>
               </div>
             </nav>
           </div>

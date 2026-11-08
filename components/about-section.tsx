@@ -89,6 +89,7 @@ export function AboutSection() {
                 src={imageSrc}
                 alt="Profile portrait"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 45vw, 480px"
                 className="object-cover rounded-xl"
                 priority
                 onError={() => setImageSrc(githubAvatarUrl)}

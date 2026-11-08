@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { BlogData } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
@@ -44,6 +45,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    ...BlogData.map((post) => ({
+      url: `${baseUrl}/writing/${post.slug || "webRTC-system-Engineering"}`,
+      lastModified: new Date("2026-11-08"),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/#contact`,
       lastModified: new Date("2026-11-04"),
